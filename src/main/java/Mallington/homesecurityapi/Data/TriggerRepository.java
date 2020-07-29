@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 //@NoRepositoryBean
-public interface TriggerRepository extends CrudRepository<UltraSonicEvent, Integer> {
+public interface TriggerRepository extends CrudRepository<SonicEvent, Integer> {
 }

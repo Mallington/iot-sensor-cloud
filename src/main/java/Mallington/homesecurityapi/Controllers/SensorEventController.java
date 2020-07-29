@@ -1,8 +1,9 @@
 package Mallington.homesecurityapi.Controllers;
 
+import Mallington.homesecurityapi.Data.SonicEvent;
 import Mallington.homesecurityapi.Data.TriggerEvent;
 import Mallington.homesecurityapi.Data.TriggerRepository;
-import Mallington.homesecurityapi.Data.UltraSonicEvent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 @RestController()
@@ -17,13 +18,13 @@ public class SensorEventController {
     }
 
     @RequestMapping("/events")
-    public @ResponseBody Iterable<UltraSonicEvent> getEvents(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
+    public @ResponseBody Iterable<SonicEvent> getEvents(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
                                    @RequestParam(value = "deviceID", defaultValue = "") String deviceID){
         return repository.findAll();
     }
 
     @PostMapping("/create")
-    public @ResponseBody String logEvent(@RequestBody UltraSonicEvent student){
+    public @ResponseBody String logEvent(@RequestBody SonicEvent student){
         repository.save(student);
         return "Saved";
     }
