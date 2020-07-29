@@ -1,4 +1,4 @@
-package Mallington.homesecurityapi.Controllers;
+/*package Mallington.homesecurityapi.Controllers;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
@@ -14,5 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController()
 @RequestMapping("/Ultrasonic")
 public class SensorController extends TriggerEventController<UltraSonicEvent>{
+    @Override
+    public String index() {
+        return super.index()+"\nThis is used to store readings captured from an ultrasonic depth sensor.";
+    }
 
 }
+*/

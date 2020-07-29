@@ -1,14 +1,10 @@
 package Mallington.homesecurityapi.Data;
 
+import javax.persistence.Entity;
 import java.util.Date;
-
+@Entity
 public class UltraSonicEvent extends TriggerEvent{
     private double proximity;
-    public UltraSonicEvent(Date time, long id, double proximity) {
-        super(time, id);
-        this.proximity = proximity;
-    }
-
     public double getProximity() {
         return proximity;
     }

@@ -1,32 +1,38 @@
-package Mallington.homesecurityapi.Controllers;
+/*package Mallington.homesecurityapi.Controllers;
         import java.time.Instant;
+        import java.util.ArrayList;
         import java.util.Arrays;
         import java.util.Date;
         import java.util.List;
         import java.util.concurrent.atomic.AtomicLong;
 
         import Mallington.homesecurityapi.Data.TriggerEvent;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RequestParam;
-        import org.springframework.web.bind.annotation.RestController;
+        import Mallington.homesecurityapi.Data.TriggerRepository;
+        import Mallington.homesecurityapi.Data.UltraSonicEvent;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.data.repository.CrudRepository;
+        import org.springframework.web.bind.annotation.*;
 
 public class TriggerEventController<trigger extends TriggerEvent> {
+    @Autowired
+    private TriggerRepository<trigger> repository;
 
     @RequestMapping
     public String index() {
-        return "Welcome to the home security API";
+        return "This is a Trigger Event Controller.";
     }
 
-    @RequestMapping("/getEvents/")
-    public List<trigger> getEvents(@RequestParam(value = "limit", defaultValue = Integer.MAX_VALUE+"") Integer limit){
-        List<trigger> mocks = Arrays.asList(null,null,null,null,null);
-        return mocks;
+    @RequestMapping("/events")
+    public @ResponseBody Iterable<trigger> getEvents(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
+                                   @RequestParam(value = "deviceID", defaultValue = "") String deviceID){
+        return repository.findAll();
     }
 
-    @RequestMapping("/logEvent")
-    public List<trigger> logEvent(){
-        List<trigger> mocks = Arrays.asList(null,null,null,null,null);
-        return mocks;
+    @PostMapping("/create")
+    public @ResponseBody String logEvent(@RequestBody trigger student){
+        repository.save(student);
+        return "Saved";
     }
 
 }
+*/

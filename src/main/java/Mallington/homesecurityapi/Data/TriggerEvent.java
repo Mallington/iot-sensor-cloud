@@ -1,22 +1,26 @@
 package Mallington.homesecurityapi.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@MappedSuperclass
 public class TriggerEvent {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer id;
+
     private Date time;
-    private long id;
-
-
-    public TriggerEvent(Date time, long id) {
-        this.time = time;
-        this.id = id;
-    }
+    private String deviceID;
 
     public Date getTime() {
         return time;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public String getDeviceID() {
+        return deviceID;
     }
 }
