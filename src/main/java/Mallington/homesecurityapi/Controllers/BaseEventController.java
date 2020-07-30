@@ -1,11 +1,13 @@
-/*package Mallington.homesecurityapi.Controllers;
+package Mallington.homesecurityapi.Controllers;
 
-import Mallington.homesecurityapi.Data.TriggerEvent;
-        import Mallington.homesecurityapi.Data.TriggerRepository;
+import Mallington.homesecurityapi.Data.BaseEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class TriggerEventController<trigger extends TriggerEvent> {
+public class BaseEventController<trigger extends BaseEvent> {
+    @Autowired
+    CrudRepository<trigger, Integer> controller;
 
     @RequestMapping
     public String index() {
@@ -15,16 +17,13 @@ public abstract class TriggerEventController<trigger extends TriggerEvent> {
     @RequestMapping("/events")
     public @ResponseBody Iterable<trigger> getEvents(@RequestParam(value = "limit", defaultValue = "10") Integer limit,
                                    @RequestParam(value = "deviceID", defaultValue = "") String deviceID){
-        return getRepository().findAll();
+        return controller.findAll();
     }
 
     @PostMapping("/create")
     public @ResponseBody String logEvent(@RequestBody trigger student){
-        getRepository().save(student);
+        controller.save(student);
         return "Saved";
     }
 
-    public abstract TriggerRepository<trigger> getRepository();
-
 }
-*/

@@ -1,9 +1,9 @@
 package Mallington.homesecurityapi.Data;
 
 import javax.persistence.Entity;
-import java.util.Date;
+
 @Entity
-public class SonicEvent extends TriggerEvent{
+public class SonicEvent extends BaseEvent {
     private double proximity;
     public double getProximity() {
         return proximity;
