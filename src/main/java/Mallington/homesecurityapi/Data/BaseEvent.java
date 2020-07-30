@@ -10,8 +10,8 @@ public class BaseEvent {
     private Integer id;
 
     private Date time;
+
     private String deviceID;
-    private String deviceName;
 
     public Date getTime() {
         return time;
@@ -23,9 +23,5 @@ public class BaseEvent {
 
     public String getDeviceID() {
         return deviceID;
-    }
-
-    public String getDeviceName() {
-        return deviceName;
     }
 }
