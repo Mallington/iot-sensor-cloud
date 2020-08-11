@@ -12,7 +12,7 @@ public interface CRUDServiceInterface<data extends Identifiable<primary>, primar
     data latest();
 
     @Transactional
-    String create(@RequestBody data newObject);
+    primary create(@RequestBody data newObject);
 
     @Transactional
     data getByID(@RequestBody primary id);

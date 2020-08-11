@@ -31,9 +31,8 @@ public abstract class CRUDServiceBase<data extends Identifiable<primary>, primar
 
         @Override
         @Transactional
-        public String create(@RequestBody data newObject){
-            getRepository().save(newObject);
-            return "Saved";
+        public primary create(@RequestBody data newObject){
+            return getRepository().save(newObject).getId();
         }
 
         @Override

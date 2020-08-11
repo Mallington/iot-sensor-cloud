@@ -13,7 +13,7 @@ public abstract class BaseController <data extends Identifiable<primary>, primar
     public CRUDServiceInterface<data, primary> getService(){return service;}
 
     @PostMapping
-    public @ResponseBody String create(@RequestBody data newObject){
+    public @ResponseBody primary create(@RequestBody data newObject){
         return getService().create(newObject);
     }
 
