@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping("/devices")
-public class DeviceController extends BaseController<DeviceInfo,String, CRUDServiceBase<DeviceInfo, String>> {
+public class DeviceController extends BaseController<DeviceInfo,String, DeviceService> {
 
 
    /*  @Autowired
