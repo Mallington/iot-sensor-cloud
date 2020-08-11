@@ -1,10 +1,10 @@
-package Mallington.homesecurityapi.Data;
+package Mallington.homesecurityapi.model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseEvent {
+public class BaseEvent implements Identifiable<Integer>{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

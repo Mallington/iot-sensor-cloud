@@ -1,4 +1,4 @@
-package Mallington.homesecurityapi.Data;
+package Mallington.homesecurityapi.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,17 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class DeviceInfo {
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class DeviceInfo implements Identifiable<String>{
+
     @Id
-    private String deviceID;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private String id;
 
     private String deviceName;
 
-    public String getDeviceID() {
-        return deviceID;
-    }
     public String getDeviceName() {
         return deviceName;
+    }
+
+    public String getId() {
+        return id;
     }
 }

@@ -1,4 +1,4 @@
-package Mallington.homesecurityapi.Data;
+package Mallington.homesecurityapi.model;
 
 import javax.persistence.Entity;
 
