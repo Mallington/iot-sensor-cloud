@@ -11,3 +11,6 @@ build
 # Maven
 log/
 target/
+/node/
+npm-debug.log
+/node_modules/
