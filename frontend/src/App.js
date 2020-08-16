@@ -1,7 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import DeviceOverview from './components/DeviceOverview'
 
+function createList(limit){
+  const itemList = ['test', 'ing', 'YEs'];
+  const components = itemList.map((item)=> <DeviceOverview name={item}></DeviceOverview>);
+  return (<ul>{components}</ul>);
+}
 function App() {
   return (
     <div className="App">
@@ -19,6 +25,7 @@ function App() {
           Learn React
         </a>
       </header>
+      {createList(5)}
     </div>
   );
 }
