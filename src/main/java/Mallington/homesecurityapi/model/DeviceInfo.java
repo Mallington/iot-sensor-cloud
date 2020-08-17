@@ -1,18 +1,22 @@
 package Mallington.homesecurityapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Hashtable;
+import java.util.List;
 
-@Entity
+@Entity(name = "DeviceInfo")
+@Table(name="device_info")
 public class DeviceInfo implements Identifiable<String>{
     enum DeviceType{
         HOSTS, SENSOR
     }
 
+    @Column(name="device_id")
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
@@ -25,10 +29,18 @@ public class DeviceInfo implements Identifiable<String>{
 
     private String outputDataType;
 
+    @OneToMany(
+            mappedBy = "deviceInfo",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+
+    private List<PinConfiguration> pinMap;
+
     public String getDeviceName() {
         return deviceName;
     }
-
+ 
     public String getId() {
         return id;
     }
@@ -43,5 +55,14 @@ public class DeviceInfo implements Identifiable<String>{
 
     public String getOutputDataType() {
         return outputDataType;
+    }
+
+    public List<PinConfiguration> getPinMap() {
+        return pinMap;
+    }
+
+    public void setPinMap(List<PinConfiguration> pinMap) {
+        this.pinMap = pinMap;
+        pinMap.forEach(entity -> entity.setDeviceInfo(this));
     }
 }
