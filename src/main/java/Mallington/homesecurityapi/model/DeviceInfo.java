@@ -40,7 +40,7 @@ public class DeviceInfo implements Identifiable<String>{
     public String getDeviceName() {
         return deviceName;
     }
- 
+
     public String getId() {
         return id;
     }
