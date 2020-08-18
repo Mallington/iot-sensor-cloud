@@ -23,15 +23,9 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
   return (
-    <div className="App"  style={{backgroundColor: "red"}}>
-      <div style={{width: 300,
-          height:1000, backgroundColor: "blue", float:'left'}}>
-          {sidebar}
+    <div class="App" >
+        <div class="App">hello</div>
 
-      </div>
-        <div style={{width: 250,
-            height:1000,backgroundColor: "green", float:'right'}}>
-        </div>
     </div>
 
   );
