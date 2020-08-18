@@ -1,20 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faServer } from '@fortawesome/free-solid-svg-icons'
-import DeviceConfig from '../configs/DeviceTypeMaps'
+import DeviceConfig from '../configs/DeviceConfig'
 class DeviceOverview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             deviceID:props.deviceID,
-            device: {
-                "id":undefined,
-                "deviceName": undefined,
-                "deviceType": undefined,
-                "parentId": undefined,
-                "outputDataType": undefined,
-                "pinMap": []
-            }
+            device: DeviceConfig.empty
         };
 
     }
@@ -38,7 +30,8 @@ class DeviceOverview extends React.Component {
             color: "white",
             backgroundColor: "black",
             padding: "10px",
-            fontFamily: "Roboto"
+            fontFamily: "Roboto",
+
         };
         const mystyleBody = {
             color: "white",
@@ -47,12 +40,12 @@ class DeviceOverview extends React.Component {
             fontFamily: "Roboto"
         };
         return (
-            <div style={mystyleBody}>
-                <h1 style={mystyle}>{this.state.device.deviceName} <FontAwesomeIcon icon={DeviceConfig.GetIcon(this.state.device.deviceType)} /></h1>
-                <h2>Device Type: {this.state.device.deviceType}</h2>
-                {(this.state.device.outputDataType!=null)?(<h3>Output Data: {this.state.device.outputDataType}</h3>):(null)}
-                <h5>Device UID: {this.state.device.id} | Parent UID: {(this.state.device.parentId!=null)?this.state.device.parentId:"No Parents"}</h5>
 
+            <div style={mystyleBody}>
+                <h2 style={mystyle}>{this.state.device.deviceName} | <FontAwesomeIcon icon={DeviceConfig.GetIcon(this.state.device.deviceType)} /></h2>
+                <h3>Device Type: {this.state.device.deviceType}</h3>
+                {(this.state.device.outputDataType!=null)?(<h4>Output Data: {this.state.device.outputDataType}</h4>):(null)}
+                <h6>Device UID: {this.state.device.id} | Parent UID: {(this.state.device.parentId!=null)?this.state.device.parentId:"No Parents"}</h6>
             </div>
         );
     }

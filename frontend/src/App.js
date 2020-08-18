@@ -5,6 +5,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import DevicesCardCollection from './components/DevicesCardCollection'
+import DeviceForm from './components/DeviceForm'
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -54,6 +55,7 @@ function App() {
       {/*  </a>*/}
       {/*</header>*/}
       <DevicesCardCollection></DevicesCardCollection>
+        <DeviceForm></DeviceForm>
     </div>
   );
 }

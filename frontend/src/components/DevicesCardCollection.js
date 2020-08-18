@@ -25,7 +25,11 @@ class DevicesCardCollection extends React.Component{
         const components = (this.state.devices!=null)?
             this.state.devices.map((item) =>  <li key={item.id}><DeviceOverview deviceID={item.id}></DeviceOverview></li>)
             : (<h1>Loading</h1>);
-        return(<ul>{components}</ul>)
+        return(
+            <div style={{width: 400}}>
+            <ul>{components}</ul>
+            </div>
+        )
     }
 }
 export default DevicesCardCollection;
