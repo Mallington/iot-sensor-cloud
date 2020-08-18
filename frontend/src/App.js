@@ -24,8 +24,10 @@ function App() {
     const classes = useStyles();
   return (
     <div class="App" >
-        <div class="App">hello</div>
-
+        <div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>
+        <div style= {{width:"50%", height:"100%", float:"left"}}>
+            <DevicesCardCollection></DevicesCardCollection>
+        </div>
     </div>
 
   );
