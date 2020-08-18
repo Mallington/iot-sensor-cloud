@@ -1,6 +1,7 @@
 import {Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader, SubMenu} from "react-pro-sidebar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faQuestion, faHome, faCog, faProjectDiagram, faCode} from "@fortawesome/free-solid-svg-icons";
+import { FaGithub } from 'react-icons/fa';
 import React from "react";
 
 const sidebar = ()=>{
@@ -39,17 +40,23 @@ const sidebar = ()=>{
             <div
                 className="sidebar-btn-wrapper"
                 style={{
-                    padding: '20px 24px',
+                    color: "white",
+                    padding: '20px 24px'
                 }}
             >
                 <a
-                    href="https://github.com/azouaoui-med/react-pro-sidebar"
+                    href="https://github.com/mallington"
                     target="_blank"
                     className="sidebar-btn"
                     rel="noopener noreferrer"
+                    className="sidebar-btn-wrapper"
+                    style={{
+                        color: "white",
+                        textDecoration: 'none'
+                    }}
                 >
-
-                    <span> Source</span>
+                    <FaGithub size={'3em'}>hello</FaGithub>
+                    <span>Mallington/DeviceWatcher</span>
                 </a>
             </div>
         </SidebarFooter>
