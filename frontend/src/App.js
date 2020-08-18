@@ -4,7 +4,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
-import DeviceOverview from './components/DeviceOverview'
+import DevicesCardCollection from './components/DevicesCardCollection'
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -19,18 +19,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 function createList(limit){
-  var itemList = ['test', 'ing', 'YEs'];
-  for(var a =0; a<limit-3; a++) {
-      itemList.push('test');
-  }
-    const components = itemList.map((item) => <GridListTile key="Subheader" cols={0} style={{ height: 'auto', width: 400 }}>
-        <DeviceOverview name={item}></DeviceOverview>
+
+  var deviceList = fetch('/api/devices/')
+  var deviceList = fetch('/api/devices/')
+        .then(response => response.json()).
+  console.log(deviceList);
+
+    /*const components = deviceList.map((item) => <GridListTile key="Subheader" cols={0} style={{ height: 'auto', width: 400 }}>
+        <DeviceOverview deviceID={item.id}></DeviceOverview>
     </GridListTile>
 
 
 
     );
-  return (<ul>{components}</ul>);
+  return (<ul>{components}</ul>); */
+    return (<h1>Bruh</h1>)
 }
 function App() {
     const classes = useStyles();
@@ -50,11 +53,7 @@ function App() {
       {/*    Learn React*/}
       {/*  </a>*/}
       {/*</header>*/}
-      <GridList cellHeight={50} className={classes.gridList}>
-      {createList(15)}
-
-      )}
-      </GridList>
+      <DevicesCardCollection></DevicesCardCollection>
     </div>
   );
 }

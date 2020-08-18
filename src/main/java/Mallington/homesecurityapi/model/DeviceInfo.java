@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name="device_info")
 public class DeviceInfo implements Identifiable<String>{
     enum DeviceType{
-        HOSTS, SENSOR
+        HOST, SENSOR
     }
 
     @Column(name="device_id")
