@@ -1,6 +1,6 @@
 import {Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader, SubMenu} from "react-pro-sidebar";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faQuestion, faHome, faCog, faProjectDiagram, faCode} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 const sidebar = ()=>{
@@ -18,31 +18,20 @@ const sidebar = ()=>{
                     whiteSpace: 'nowrap',
                 }}
             >
-                Sidebar Title
+                Device Watcher
             </div>
         </SidebarHeader>
 
         <SidebarContent>
             <Menu iconShape="circle">
                 <MenuItem
-                    icon={<FontAwesomeIcon icon={faQuestion}/>}
-                    suffix={<span className="badge red">new</span>}
+                    icon={<FontAwesomeIcon icon={faHome}/>}
                 >
                     dashboard
                 </MenuItem>
-                <MenuItem icon={<FontAwesomeIcon icon={faQuestion}/>}> Components</MenuItem>
-            </Menu>
-            <Menu iconShape="circle">
-                <SubMenu
-                    suffix={<span className="badge yellow">3</span>}
-                    title={"Title test"}
-                    icon={<FontAwesomeIcon icon={faQuestion}/>}
-                >
-                    <MenuItem> 1</MenuItem>
-                    <MenuItem>2</MenuItem>
-                    <MenuItem>3</MenuItem>
-                </SubMenu>
-
+                <MenuItem icon={<FontAwesomeIcon icon={faProjectDiagram}/>}> Projects</MenuItem>
+                <MenuItem icon={<FontAwesomeIcon icon={faCode}/>}> Device Manager</MenuItem>
+                <MenuItem icon={<FontAwesomeIcon icon={faCog}/>}> Preferences</MenuItem>
             </Menu>
         </SidebarContent>
 
