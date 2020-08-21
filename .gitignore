@@ -1,16 +1,2 @@
-# Intellij
-.idea/
-*.iml
-*.iws
-build
-.idea/*
- 
-# Mac
+
 .DS_Store
- 
-# Maven
-log/
-target/
-/node/
-npm-debug.log
-/node_modules/
