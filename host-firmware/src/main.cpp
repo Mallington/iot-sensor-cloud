@@ -11,7 +11,7 @@ char ssid[] = WIFI_SSID;        // your network SSID (name)
 char pass[] = WIFI_PASS;    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
-int status = WL_IDLE_STATUS;
+
 // if you don't want to use DNS (and reduce your sketch size)
 // use the numeric IP instead of the name for the server:
 //IPAddress server(74,125,232,128);  // numeric IP for Google (no DNS)
@@ -30,32 +30,12 @@ void setup() {
   }
 
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_MODULE) {
-    Serial.println("Communication with WiFi module failed!");
-    // don't continue
-    while (true);
-  }
-
-  String fv = WiFi.firmwareVersion();
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
-    Serial.println("Please upgrade the firmware");
-  }
-
-  // attempt to connect to Wifi network:
-
-  while (status != WL_CONNECTED) {  
-    status = WiFi.begin(ssid, pass);
-    long begin = millis();
-    while(status != WL_CONNECTED && millis()-begin<=10000);
-  }
+  int status = WiFiUtils.connectWiFI(ssid, pass, 10000);
+  if(status == WL_CONNECTED){
   Serial.println("Connected to wifi");
-  
   WiFiUtils.printWiFiStatus();
-
-  Serial.println("\nStarting connection to server...");
-  // if you get a connection, report back via serial:
 }
-
+}
 String readJSONString(WiFiClient client){
   int openCount =0;
   bool started =false;
