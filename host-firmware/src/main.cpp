@@ -1,6 +1,7 @@
 #include <ArduinoJson.h>
 #include <SPI.h>
 #include <WiFiNINA.h>
+#include <network/WiFiUtils.h>
 
 
 
@@ -18,23 +19,6 @@ int status = WL_IDLE_STATUS;
 // Initialize the Ethernet client library
 // with the IP address and port of the server
 // that you want to connect to (port 80 is default for HTTP):
-
-void printWifiStatus() {
-  // print the SSID of the network you're attached to:
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
-
-  // print your board's IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
-  Serial.println(ip);
-
-  // print the received signal strength:
-  long rssi = WiFi.RSSI();
-  Serial.print("signal strength (RSSI):");
-  Serial.print(rssi);
-  Serial.println(" dBm");
-}
 
 WiFiClient client;
 
@@ -58,17 +42,15 @@ void setup() {
   }
 
   // attempt to connect to Wifi network:
-  while (status != WL_CONNECTED) {
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(ssid);
-    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
-    status = WiFi.begin(ssid, pass);
 
-    // wait 10 seconds for connection:
-    delay(10000);
+  while (status != WL_CONNECTED) {  
+    status = WiFi.begin(ssid, pass);
+    long begin = millis();
+    while(status != WL_CONNECTED && millis()-begin<=10000);
   }
   Serial.println("Connected to wifi");
-  printWifiStatus();
+  
+  WiFiUtils.printWiFiStatus();
 
   Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
