@@ -1,11 +1,14 @@
-#include <ArduinoJson.h>
+#define ARDUINOJSON_ENABLE_STD_STRING 0
+#define ARDUINOJSON_ENABLE_STD_STREAM 0
+#include "ArduinoJson.h"
 #include <SPI.h>
 #include <WiFiNINA.h>
 #include <network/WiFiUtils.h>
 
 
 
-#include "run_parameters.h" 
+#include "run_parameters.h"
+#include <network/RestAPI.h> 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = WIFI_SSID;        // your network SSID (name)
 char pass[] = WIFI_PASS;    // your network password (use for WPA, or use as key for WEP)
@@ -21,7 +24,7 @@ int keyIndex = 0;            // your network key Index number (needed only for W
 // that you want to connect to (port 80 is default for HTTP):
 
 WiFiClient client;
-
+RestAPI api(API_ADDRESS, API_PORT, client);
 void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
@@ -36,71 +39,26 @@ void setup() {
   WiFiUtils.printWiFiStatus();
 }
 }
-String readJSONString(WiFiClient client){
-  int openCount =0;
-  bool started =false;
-  bool quotes = false;
-  String recieved = "";
-  
-  while (client.available()) {
-    char current = (char)client.read();
-    started = started || (!started && current=='{');
-    
-    if(started){
-      quotes = (current=='"')? !quotes : quotes;
-      openCount += (current=='{' && !quotes)? 1: ((current=='}'&& !quotes)? -1 : 0);
-      recieved += current;
-      if(openCount==0){
-        return recieved;
-      }
-    }
-  }
-  client.flush();
-  return "INVALID";
-}
-
-String getRequest(String request, int timeout, bool keepAlive){
-    if(!client.connected()){
-      if(!client.connect(API_ADDRESS, API_PORT)) return "NO_CONNECTION";
-    }
-  client.println(String("GET ")+request+" HTTP/1.1");
-  client.println(String("Host: ")+API_ADDRESS+":"+API_PORT);
-  client.println("Connection: "+String((keepAlive)?"Keep-Alive":"close"));
-  client.println();
-  
-  long start = millis();
-  
-  while(client.available()<=0){
-    if(millis()-start>timeout){
-      return "TIMEOUT";
-    }
-  }
-  return readJSONString(client);
-}
 
 void loop() {
-  // if there are incoming bytes available
-  // from the server, read them and print them:
     Serial.println("Connected");
-    unsigned long start = millis();
-    for(int i=0; i<1000; i++){
-    String recieved = getRequest(String("/devices/")+DEVICE_ID, 2000, true);
-//    http.get(String("/devices/")+DEVICE_ID);
-//    String recieved = http.responseBody();
+    String recieved = api.getRequest(String("/devices/")+DEVICE_ID, 2000, true);
     Serial.println("R:"+recieved);
-    delay(500);
-   
-  }
-  
-  
-  // if the server's disconnected, stop the client:
+
+    DynamicJsonDocument doc(1024);
+    DeserializationError error = deserializeJson(doc, recieved);
+
+    if(error){
+      Serial.println("That didn't go well, couldn't parse the response!");
+      Serial.println(error.c_str());
+    }
+    const char* deviceName = doc["deviceName"];
+    Serial.println(deviceName); 
+
   if (!client.connected()) {
     Serial.println();
     Serial.println("disconnecting from server.");
     client.stop();
-
-    // do nothing forevermore:
-  
   }
     while (Serial.available()<=0);
 }
