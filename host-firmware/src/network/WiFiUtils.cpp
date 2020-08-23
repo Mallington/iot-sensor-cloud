@@ -1,6 +1,6 @@
 #include "WiFiUtils.h"
 
-int WiFiUtilsClass::connectWiFI(char* ssid, char* password, int timeout, int attempts){
+int WiFiUtilsClass::connectWiFI(char* ssid, char* password, long timeout, int attempts){
   int status = WL_IDLE_STATUS;
   if (WiFi.status() == WL_NO_MODULE) {
     Serial.println("Communication with WiFi module failed!");
@@ -11,7 +11,7 @@ int WiFiUtilsClass::connectWiFI(char* ssid, char* password, int timeout, int att
 
   for (int i=0; status != WL_CONNECTED && i<attempts; i++ ) {  
     status = WiFi.begin(ssid, password);
-    long begin = millis();
+    unsigned long begin = millis();
     while(status != WL_CONNECTED && millis()-begin<=timeout);
   }
   return status;
