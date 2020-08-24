@@ -1,11 +1,12 @@
 #include <sensors/SonicSensor.h>
 
 bool SonicSensor::setup(){
- return false;
+    return false;
 }
-char* SonicSensor::getData(){
-    return "Hello";
+DynamicJsonDocument& SonicSensor::getData(){
+    DynamicJsonDocument jsonDocument(1024);
+    return jsonDocument;
 }
-bool SonicSensor::updateState(char* deviceJSON){
+bool SonicSensor::updateState(DynamicJsonDocument& deviceJSON){
     return false;
 }
