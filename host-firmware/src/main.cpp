@@ -1,13 +1,11 @@
-#define ARDUINOJSON_ENABLE_STD_STRING 0
-#define ARDUINOJSON_ENABLE_STD_STREAM 0
-
-#include "ArduinoJson.h"
+#include <scheduling/MainScheduler.h>
 #include <SPI.h>
 #include <WiFiNINA.h>
 
 #include <network/WiFiUtils.h>
 #include "run_parameters.h"
 #include <network/RestAPI.h> 
+#include <sensors/SonicSensor.h>
 
 WiFiClient client;
 RestAPI api(API_ADDRESS, API_PORT, client);
@@ -40,6 +38,8 @@ void loop() {
     }
     const char* deviceName = doc["deviceName"];
     Serial.println(deviceName); 
+
+    SonicSensor sensor(String("Hello"));
 
   if (!client.connected()) {
     Serial.println();

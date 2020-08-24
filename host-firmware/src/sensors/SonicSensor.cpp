@@ -1,12 +1,13 @@
 #include <sensors/SonicSensor.h>
-
-bool SonicSensor::setup(){
+SonicSensor::SonicSensor(String deviceIDPass):ITask(deviceIDPass){
+}
+bool SonicSensor::setup(DynamicJsonDocument* deviceJSON){
     return false;
 }
-DynamicJsonDocument& SonicSensor::getData(){
+DynamicJsonDocument* SonicSensor::getData(){
     DynamicJsonDocument jsonDocument(1024);
-    return jsonDocument;
+    return &jsonDocument;
 }
-bool SonicSensor::updateState(DynamicJsonDocument& deviceJSON){
+bool SonicSensor::updateState(DynamicJsonDocument* deviceJSON){
     return false;
 }
