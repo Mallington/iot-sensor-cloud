@@ -1,12 +1,12 @@
 #ifndef SonicSensor_h
 #define SonicSensor_h
 
-#include <scheduling/ITask.h>
+#include <scheduling/MainScheduler.h>
 
 class SonicSensor : public ITask{
     virtual bool setup();
-    virtual char* getData();
-    virtual bool updateState(char* deviceJSON);
+    virtual DynamicJsonDocument& getData();
+    virtual bool updateState(DynamicJsonDocument& deviceJSON);
 };
 
 #endif
