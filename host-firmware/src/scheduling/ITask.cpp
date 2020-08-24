@@ -1,8 +1,8 @@
 #include <scheduling/ITask.h>
 
 ITask::ITask(String deviceIDPass){
-    deviceID = deviceID;
+     deviceID = deviceIDPass;
 }
 String ITask::getDeviceID(){
     return deviceID;
-}
+} 

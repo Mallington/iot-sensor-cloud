@@ -1,6 +1,6 @@
 #include <sensors/SonicSensor.h>
-SonicSensor::SonicSensor(String deviceIDPass):ITask(deviceIDPass){
-}
+
+SonicSensor::SonicSensor(String deviceIDPass):ITask(deviceIDPass){}
 bool SonicSensor::setup(DynamicJsonDocument* deviceJSON){
     return false;
 }
