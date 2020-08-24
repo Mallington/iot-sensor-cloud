@@ -39,7 +39,8 @@ void loop() {
     const char* deviceName = doc["deviceName"];
     Serial.println(deviceName); 
 
-    SonicSensor sensor(String("Hello"));
+    SonicSensor sensor("hello");
+    Serial.println(sensor.getDeviceID());
 
   if (!client.connected()) {
     Serial.println();
