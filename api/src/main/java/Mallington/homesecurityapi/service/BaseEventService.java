@@ -53,7 +53,6 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     private CrudRepository<BaseEvent, Integer> getRepositoryByID(Integer id){
         List<BaseEvent> events = new ArrayList<BaseEvent>();
         for(CrudRepository<BaseEvent, Integer> repo : getIncludedRepositories()) {
-            System.out.println(repo);
             if(repo!=null) {
                 Optional<BaseEvent> optional = repo.findById(id);
                 if (optional != null && optional.isPresent()) return repo;
