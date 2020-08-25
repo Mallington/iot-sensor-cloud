@@ -1,5 +1,7 @@
 package Mallington.homesecurityapi.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.Entity;
 
 @Entity

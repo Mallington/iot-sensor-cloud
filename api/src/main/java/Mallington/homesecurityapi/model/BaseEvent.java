@@ -1,10 +1,18 @@
 package Mallington.homesecurityapi.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
-public class BaseEvent implements Identifiable<Integer>{
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = SonicEvent.class, name = "SonicEvent"),
+        @JsonSubTypes.Type(value = WaterDepthEvent.class, name = "WaterDepthEvent")
+})
+public abstract class BaseEvent implements Identifiable<Integer>{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;

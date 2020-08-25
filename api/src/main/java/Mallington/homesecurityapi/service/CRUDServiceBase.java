@@ -1,5 +1,6 @@
 package Mallington.homesecurityapi.service;
 
+import Mallington.homesecurityapi.model.BaseEvent;
 import Mallington.homesecurityapi.model.Identifiable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -11,7 +12,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class CRUDServiceBase<data extends Identifiable<primary>, primary> implements CRUDServiceInterface<data, primary> {
-
 
         public abstract CrudRepository<data, primary> getRepository();
 
