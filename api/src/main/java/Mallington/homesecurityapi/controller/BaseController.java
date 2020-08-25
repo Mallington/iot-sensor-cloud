@@ -5,7 +5,7 @@ import Mallington.homesecurityapi.service.CRUDServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-public abstract class BaseController <data extends Identifiable<primary>, primary, serv extends CRUDServiceInterface<data, primary>>{
+public class BaseController <data extends Identifiable<primary>, primary, serv extends CRUDServiceInterface<data, primary>>{
 
     @Autowired
     serv service;

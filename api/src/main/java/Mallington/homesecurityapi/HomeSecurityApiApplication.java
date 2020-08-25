@@ -1,6 +1,8 @@
 package Mallington.homesecurityapi;
 
+import Mallington.homesecurityapi.model.BaseEvent;
 import Mallington.homesecurityapi.model.SonicEvent;
+import Mallington.homesecurityapi.model.WaterDepthEvent;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
