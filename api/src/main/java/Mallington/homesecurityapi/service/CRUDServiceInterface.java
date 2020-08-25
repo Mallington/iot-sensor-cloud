@@ -1,6 +1,7 @@
 package Mallington.homesecurityapi.service;
 
 import Mallington.homesecurityapi.model.Identifiable;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
