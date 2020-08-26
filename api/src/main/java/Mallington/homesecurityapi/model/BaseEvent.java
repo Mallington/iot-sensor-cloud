@@ -2,6 +2,7 @@ package Mallington.homesecurityapi.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,6 +18,7 @@ public abstract class BaseEvent implements Identifiable<Integer>{
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
+    @CreationTimestamp
     private Date time;
 
     private String deviceID;
