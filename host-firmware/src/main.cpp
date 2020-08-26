@@ -11,12 +11,9 @@
 WiFiClient client;
 RestAPI api(API_ADDRESS, API_PORT, client);
 
-#define genAmount 1
-ITask* tasks[genAmount];
 MainScheduler scheduler(1000);
 
 void setup() {
- 
   Serial.begin(9600);
 
   int status = WiFiUtils.connectWiFI(WIFI_SSID, WIFI_PASS, 10000);
@@ -24,15 +21,11 @@ void setup() {
     Serial.println("Connected to wifi");
     WiFiUtils.printWiFiStatus();
   }
-
-    for(int i=0; i<genAmount; i++){
-        scheduler.add(new WaterDepthSensor(String("testID")+i));
-    }
-
+    //Add sensor tasks
+    scheduler.add(new WaterDepthSensor(String("testID")));
     scheduler.setup();
 }
-long waitPeriod =150;
-long last =0;
+
 void loop() {
     /*Serial.println("Connected");
     String recieved = api.getRequest(String("/devices/")+DEVICE_ID, 2000, true);
