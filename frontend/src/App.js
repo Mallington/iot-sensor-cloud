@@ -6,6 +6,7 @@ import DeviceForm from './components/DeviceForm'
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
 import { faServer, faQuestion, faTachometerAlt, git } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import WaterDepthSensorWidget from './components/widgets/WaterDepthSensorWidget'
 import sidebar from './components/Sidebar'
 import 'react-pro-sidebar/dist/css/styles.css';
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +28,7 @@ function App() {
         <div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>
         <div style= {{width:"50%", height:"100%", float:"left"}}>
             <DevicesCardCollection></DevicesCardCollection>
+            <WaterDepthSensorWidget></WaterDepthSensorWidget>
         </div>
     </div>
 
