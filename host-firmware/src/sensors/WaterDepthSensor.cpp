@@ -14,7 +14,9 @@ int WaterDepthSensor::readSensor() {
 	return val;							// send current reading
 }
 void WaterDepthSensor::getData(DynamicJsonDocument* outputDocument){
-	Serial.println(readSensor());
+	int reading = readSensor();
+    (*outputDocument)["depth"]= reading;
+    (*outputDocument)["type"]= "WaterDepthEvent";
 }
 bool WaterDepthSensor::updateState(DynamicJsonDocument* deviceJSON){
     return false;

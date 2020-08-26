@@ -1,6 +1,7 @@
 #include "network/RestAPI.h"
 #include "delay.h"
 #include <Arduino.h>
+#include <ArduinoJson.h>
 
 RestAPI::RestAPI(char* hostPass, int portPass, Client& clientPass){
     client = &clientPass;
