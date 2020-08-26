@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 
 @Entity
 public class WaterDepthEvent extends BaseEvent {
-    private double depth;
-    public double getDepth() {
+    private int depth;
+    public int getDepth() {
         return depth;
     }
 }

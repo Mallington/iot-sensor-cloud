@@ -1,9 +1,7 @@
 package Mallington.homesecurityapi.controller;
 
 import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.model.SonicEvent;
 import Mallington.homesecurityapi.service.BaseEventService;
-import Mallington.homesecurityapi.service.SonicEventService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,13 +14,13 @@ import java.util.Optional;
 @RestController()
 @RequestMapping("/events")
 public class BaseEventController extends BaseController<BaseEvent, Integer, BaseEventService>{
-    @RequestMapping(params = {"deviceID", "type"})
+    @RequestMapping(params = {"deviceId", "type"})
     public @ResponseBody()
-    Iterable<BaseEvent> listObjectsByParams(@RequestParam Optional<String> deviceID,
+    Iterable<BaseEvent> listObjectsByParams(@RequestParam Optional<String> deviceId,
                                     @RequestParam Optional<String> type){
         List<BaseEvent> filtered = new ArrayList<BaseEvent>();
         for(BaseEvent event : getService().listObjects()){
-            if((deviceID.isPresent() && deviceID.get().equals(event.getDeviceID()) || !deviceID.isPresent()) &&
+            if((deviceId.isPresent() && deviceId.get().equals(event.getDeviceId()) || !deviceId.isPresent()) &&
                     (type.isPresent() && type.get().equals(event.getClass().getSimpleName()) || !type.isPresent())) {
                 filtered.add(event);
             }
@@ -30,12 +28,12 @@ public class BaseEventController extends BaseController<BaseEvent, Integer, Base
 
         return filtered;
     }
-    @RequestMapping(params = {"deviceID"})
+    @RequestMapping(params = {"deviceId"})
     public @ResponseBody()
-    Iterable<BaseEvent> listObjectsByDeviceID(@RequestParam Optional<String> deviceID){
+    Iterable<BaseEvent> listObjectsByDeviceID(@RequestParam Optional<String> deviceId){
         List<BaseEvent> filtered = new ArrayList<BaseEvent>();
         for(BaseEvent event : getService().listObjects()){
-            if(deviceID.isPresent() && deviceID.get().equals(event.getDeviceID())) filtered.add(event);
+            if(deviceId.isPresent() && deviceId.get().equals(event.getDeviceId())) filtered.add(event);
         }
 
         return filtered;
