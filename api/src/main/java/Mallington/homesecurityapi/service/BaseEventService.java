@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Integer>{
@@ -26,7 +24,7 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     private CrudRepository[] getIncludedRepositories(){
         return new CrudRepository[]{this.waterDepthEventRepository, this.sonicEventRepository};
     }
-    private Iterable<BaseEvent> appendRepositories(CrudRepository ...repositories){
+    private List<BaseEvent> appendRepositories(CrudRepository ...repositories){
         List<BaseEvent> events = new ArrayList<BaseEvent>();
         for(CrudRepository<BaseEvent, Integer> repo : repositories) for(BaseEvent event : repo.findAll()) events.add(event);
         return events;
@@ -65,8 +63,10 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     @Override
     @Transactional
     public Iterable<BaseEvent> listObjects() {
+        List<BaseEvent> list = appendRepositories(getIncludedRepositories());
+        list.sort(Comparator.comparingInt(BaseEvent::getId));
 
-        return appendRepositories( sonicEventRepository);
+        return list;
     }
     //Not implemented
     @Override
