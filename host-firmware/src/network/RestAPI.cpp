@@ -1,5 +1,6 @@
 #include "network/RestAPI.h"
 #include "delay.h"
+#include <Arduino.h>
 
 RestAPI::RestAPI(char* hostPass, int portPass, Client& clientPass){
     client = &clientPass;
@@ -7,27 +8,34 @@ RestAPI::RestAPI(char* hostPass, int portPass, Client& clientPass){
     port = portPass;
 }
 
-String RestAPI::readJSONString(){
+String RestAPI::readResponse(){
   int openCount =0;
   bool started =false;
   bool quotes = false;
-  String recieved = "";
+  
 
-  while (client->available()) {
-    char current = (char)client->read();
-    started = started || (!started && current=='{');
-    
-    if(started){
-      quotes = (current=='"')? !quotes : quotes;
-      openCount += (current=='{' && !quotes)? 1: ((current=='}'&& !quotes)? -1 : 0);
-      recieved += current;
-      if(openCount==0){
-        return recieved;
-      }
-    }
+  client->find("\r\n\r\n");
+  char input[16];
+  int count =0;
+  char h;
+  while(isHexadecimalDigit(h=client->read())){
+    input[count++]=h;
   }
+  input[count] = '\0';
+
+  long countNum = strtol(input, 0, 16);
+
+  int recievedCount =0;
+  String recieved = "";
+  while (client->available()&&recievedCount<=countNum) {
+    char current = (char)client->read();
+    recieved+=current;
+    recievedCount++;
+  }
+  
   client->flush();
-  return "INVALID";
+  client->stop();
+  return recieved;
 }
 
 String RestAPI::getRequest(String request, int timeout, bool keepAlive){
@@ -47,6 +55,5 @@ String RestAPI::getRequest(String request, int timeout, bool keepAlive){
       return "TIMEOUT";
     }
   }
-
-    return readJSONString();
+    return readResponse();
 }
