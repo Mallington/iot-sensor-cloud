@@ -1,43 +1,69 @@
-#include <Arduino.h>
-// Sensor pins
-#define sensorPower 7
-#define sensorPin A0
+#include <scheduling/MainScheduler.h>
+#include <SPI.h>
+#include <WiFiNINA.h>
 
-// Value for storing water level
-int val = 0;
-int avg =5;
-int avgs[5];
-int curr=0;
+#include <network/WiFiUtils.h>
+#include "run_parameters.h"
+#include <network/RestAPI.h> 
+#include <sensors/SonicSensor.h>
+#include <sensors/WaterDepthSensor.h>
+
+WiFiClient client;
+RestAPI api(API_ADDRESS, API_PORT, client);
+
+#define genAmount 1
+ITask* tasks[genAmount];
+MainScheduler scheduler(1000);
+
 void setup() {
-	// Set D7 as an OUTPUT
-	pinMode(sensorPower, OUTPUT);
-	
-	// Set to LOW so no power flows through the sensor
-	digitalWrite(sensorPower, LOW);
-	
-	Serial.begin(9600);
-}
+ 
+  Serial.begin(9600);
 
-//This is a function used to get the reading
-int readSensor() {
-	digitalWrite(sensorPower, HIGH);	// Turn the sensor ON
-	delay(10);							// wait 10 milliseconds
-	val = analogRead(sensorPin);		// Read the analog value form sensor
-	digitalWrite(sensorPower, LOW);		// Turn the sensor OFF
-	return val;							// send current reading
-}
+  int status = WiFiUtils.connectWiFI(WIFI_SSID, WIFI_PASS, 10000);
+  if(status == WL_CONNECTED){
+    Serial.println("Connected to wifi");
+    WiFiUtils.printWiFiStatus();
+  }
 
+    for(int i=0; i<genAmount; i++){
+        scheduler.add(new WaterDepthSensor(String("testID")+i));
+    }
+
+    scheduler.setup();
+}
+long waitPeriod =150;
+long last =0;
 void loop() {
-	//get the reading from the function below and print it
-	int level = readSensor();
-  avgs[curr%avg] = level;
+    /*Serial.println("Connected");
+    String recieved = api.getRequest(String("/devices/")+DEVICE_ID, 2000, true);
+    Serial.println("R:"+recieved);
 
-  int fin =0;
+    DynamicJsonDocument doc(1024);
+    DeserializationError error = deserializeJson(doc, recieved);
 
-  for(int i=0; i<avg; i++) fin+=avgs[i];
-	
-	
-	Serial.println(fin/avg);
-	curr+=1;
-	delay(100);
+    if(error){
+      Serial.println("That didn't go well, couldn't parse the response!");
+      Serial.println(error.c_str());
+    }
+    const char* deviceName = doc["deviceName"];
+    Serial.println(deviceName); */
+
+    scheduler.tick();
+
+/*	while(millis()-last<waitPeriod);
+	last = millis();
+
+	DynamicJsonDocument doc(1024);
+    for(ITask* task : tasks){
+      task->getData(&doc); 
+    }
+	long duration = millis()-last;
+	if(duration>waitPeriod) Serial.println("Took too long!");
+	Serial.println(String("Round took: ")+duration+" ms"); */
+  /*if (!client.connected()) {
+    Serial.println();
+    Serial.println("disconnecting from server.");
+    client.stop();
+  }
+    while (Serial.available()<=0); */
 }
