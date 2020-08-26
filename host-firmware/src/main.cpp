@@ -40,11 +40,19 @@ void setup() {
     Serial.println(http.responseBody());
     Serial.println(millis()-start);
     } */
-    for(int i=0; i<10; i++){
+    for(int i=0; i<10000; i++){
       start =millis();
-      String recieved = api.getRequest(String("/devices?parentID=")+DEVICE_ID, 2000, false);
+      //String recieved = api.getRequest(String("/devices?parentID=")+DEVICE_ID, 2000);
+      String testContent = String("")+"{\n" +
+                "    \"type\": \"WaterDepthEvent\",\n" +
+                "    \"deviceID\": \"8abb809773fedb7d0173fedb8ba60000\",\n" +
+                "    \"depth\": 7\n" +
+                "}";
+      String recieved = api.postRequest("/events/",testContent, "application/json", 100);
+      
       Serial.println("R:"+recieved);
       Serial.println(millis()-start);
+      delay(200);
     }
 }
 
