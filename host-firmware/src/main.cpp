@@ -1,6 +1,7 @@
 #include <scheduling/MainScheduler.h>
 #include <SPI.h>
 #include <WiFiNINA.h>
+#include <ArduinoHttpClient.h>
 
 #include <network/WiFiUtils.h>
 #include "run_parameters.h"
@@ -10,12 +11,15 @@
 
 WiFiClient client;
 RestAPI api(API_ADDRESS, API_PORT, client);
+HttpClient http = HttpClient(client, API_ADDRESS, API_PORT);
 
 MainScheduler scheduler(1000);
 
 void setup() {
   Serial.begin(9600);
-
+  while (!Serial);
+  Serial.println("Started!");
+  
   int status = WiFiUtils.connectWiFI(WIFI_SSID, WIFI_PASS, 10000);
   if(status == WL_CONNECTED){
     Serial.println("Connected to wifi");
@@ -24,6 +28,24 @@ void setup() {
     //Add sensor tasks
     scheduler.add(new WaterDepthSensor(String("testID")));
     scheduler.setup();
+
+    long start;
+    /*for(int i=0; i<10; i++){
+    start = millis();
+    http.beginRequest();
+    http.get(String("/devices/")+DEVICE_ID);
+    http.endRequest();
+    
+    int responceID = http.responseStatusCode();
+    Serial.println(http.responseBody());
+    Serial.println(millis()-start);
+    } */
+    for(int i=0; i<10; i++){
+      start =millis();
+      String recieved = api.getRequest(String("/devices?parentID=")+DEVICE_ID, 2000, false);
+      Serial.println("R:"+recieved);
+      Serial.println(millis()-start);
+    }
 }
 
 void loop() {
