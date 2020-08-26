@@ -39,7 +39,6 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     }
 
     private BaseEvent getByIDPrivate(Integer id){
-        List<BaseEvent> events = new ArrayList<BaseEvent>();
         for(CrudRepository<BaseEvent, Integer> repo : getIncludedRepositories()) {
             if(repo!=null) {
                 Optional<BaseEvent> optional = repo.findById(id);
@@ -49,7 +48,6 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
         return null;
     }
     private CrudRepository<BaseEvent, Integer> getRepositoryByID(Integer id){
-        List<BaseEvent> events = new ArrayList<BaseEvent>();
         for(CrudRepository<BaseEvent, Integer> repo : getIncludedRepositories()) {
             System.out.println(repo);
             if(repo!=null) {
