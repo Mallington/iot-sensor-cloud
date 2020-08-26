@@ -21,7 +21,6 @@ public class DeviceController extends BaseController<DeviceInfo,String, DeviceSe
         for(DeviceInfo device : getService().listObjects()){
             if(parentId.isPresent() && parentId.get().equals(device.getParentId())) filtered.add(device);
         }
-
         return filtered;
     }
 }
