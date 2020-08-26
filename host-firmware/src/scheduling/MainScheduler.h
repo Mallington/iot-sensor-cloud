@@ -2,6 +2,7 @@
 #define MainScheduler_h
 
 #include <scheduling/ITask.h>
+#include <network/RestAPI.h>
 
 #define ARDUINOJSON_ENABLE_STD_STRING 0
 #define ARDUINOJSON_ENABLE_STD_STREAM 0
@@ -11,7 +12,7 @@
 
 class MainScheduler{
     public:
-        MainScheduler(long waitPeriod);
+        MainScheduler(long waitPeriod, RestAPI& apiPass);
         int getMaxCount();
         long getWaitPeriod();
         int count();
@@ -23,6 +24,7 @@ class MainScheduler{
         long waitPeriod;
         long last =0;
         ITask* tasks[MAIN_SCHEDULER_MAX_SIZE];
+        RestAPI* api;
 };
 
 #endif
