@@ -1,6 +1,5 @@
 #include <sensors/SonicSensor.h>
 
-
 SonicSensor::SonicSensor(String deviceIDPass):ITask(deviceIDPass){}
 bool SonicSensor::setup(DynamicJsonDocument* deviceJSON){
      pinMode(trigPin, OUTPUT); // Sets the trigPin as an OUTPUT
@@ -10,9 +9,10 @@ bool SonicSensor::setup(DynamicJsonDocument* deviceJSON){
   Serial.println("with Arduino UNO R3");
     return true;
 }
-DynamicJsonDocument* SonicSensor::getData(){
-    DynamicJsonDocument jsonDocument(1024);
+void SonicSensor::getData(DynamicJsonDocument* outputJson){
+    long start = millis();
     digitalWrite(trigPin, LOW);
+   
     delayMicroseconds(2);
     // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
     digitalWrite(trigPin, HIGH);
@@ -20,13 +20,14 @@ DynamicJsonDocument* SonicSensor::getData(){
     digitalWrite(trigPin, LOW);
     // Reads the echoPin, returns the sound wave travel time in microseconds
     duration = pulseIn(echoPin, HIGH);
+     Serial.println(String("Duration: ")+(millis()-start));
     // Calculating the distance
     distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
     // Displays the distance on the Serial Monitor
     Serial.print("Distance: ");
     Serial.print(distance);
     Serial.println(" cm");
-    return &jsonDocument;
+    
 }
 bool SonicSensor::updateState(DynamicJsonDocument* deviceJSON){
     return false;
