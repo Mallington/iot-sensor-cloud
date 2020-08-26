@@ -1,10 +1,18 @@
+
+#define ARDUINOJSON_ENABLE_STD_STRING 0
+#define ARDUINOJSON_ENABLE_STD_STREAM 0
+#include <ArduinoJson.h>
 #ifndef ITask_h
 #define ITask_h
 class ITask{
 
 public:
-  virtual bool setup()=0;
-  virtual char* getData()=0;
-  virtual bool updateState(char* deviceJSON)=0;
+    ITask(String deviceIDPass);
+    virtual bool setup(DynamicJsonDocument* deviceJSON)=0;
+    virtual void getData(DynamicJsonDocument* outputJson)=0;
+    virtual bool updateState(DynamicJsonDocument* deviceJSON)=0;
+    String getDeviceID(); 
+private:
+    String deviceID;
 };
 #endif
