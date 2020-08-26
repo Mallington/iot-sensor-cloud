@@ -1,6 +1,7 @@
 #include <scheduling/MainScheduler.h>
-MainScheduler::MainScheduler(long waitPeriodPass){
+MainScheduler::MainScheduler(long waitPeriodPass, RestAPI& apiPass){
     waitPeriod = waitPeriodPass;
+    api = &apiPass;
 }
 int MainScheduler::getMaxCount(){
     return MAIN_SCHEDULER_MAX_SIZE;
@@ -18,8 +19,15 @@ void MainScheduler::tick(){
 
         DynamicJsonDocument doc(1024);
         for(int i=0; i< count(); i++){
+            doc["deviceId"]= tasks[i]->getDeviceID();
+
             tasks[i]->getData(&doc); 
+            String output;
+            serializeJson(doc, output);
+            String res = api->postRequest("/events/",output, "application/json", 100);
+            doc.clear();
         }
+
         long duration = millis()-last;
         if(duration>waitPeriod) Serial.println("Took too long!");
         Serial.println(String("Round took: ")+duration+" ms");
