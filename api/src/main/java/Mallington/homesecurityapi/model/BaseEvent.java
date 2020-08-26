@@ -21,7 +21,7 @@ public abstract class BaseEvent implements Identifiable<Integer>{
     @CreationTimestamp
     private Date time;
 
-    private String deviceID;
+    private String deviceId;
 
     public Date getTime() {
         return time;
@@ -31,7 +31,7 @@ public abstract class BaseEvent implements Identifiable<Integer>{
         return id;
     }
 
-    public String getDeviceID() {
-        return deviceID;
+    public String getDeviceId() {
+        return deviceId;
     }
 }
