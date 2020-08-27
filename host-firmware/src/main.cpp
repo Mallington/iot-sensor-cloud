@@ -18,6 +18,8 @@ void setup() {
   Serial.begin(9600);
   while (!Serial);
   Serial.println("Started!");
+
+  pinMode(13, OUTPUT);
   
   int status = WiFiUtils.connectWiFI(WIFI_SSID, WIFI_PASS, 10000);
   if(status == WL_CONNECTED){
@@ -30,5 +32,6 @@ void setup() {
 }
 
 void loop() {
+    digitalWrite(13, (millis()%500>250)?HIGH:LOW);
     scheduler.tick();
 }
