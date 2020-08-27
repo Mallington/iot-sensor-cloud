@@ -48,4 +48,20 @@ public class BaseEventController extends BaseController<BaseEvent, Integer, Base
 
         return filtered;
     }
+
+    @RequestMapping(value="/filter", params = {"deviceId", "idStart", "amount"})
+    public @ResponseBody()
+    Iterable<BaseEvent> filter(@RequestParam Optional<String> deviceId, @RequestParam Optional<Integer> idStart,  @RequestParam Optional<Integer> amount){
+        List<BaseEvent> events = new ArrayList<>();
+        long addedN = 0;
+        for(BaseEvent event : listObjectsByDeviceID(deviceId)){
+            if(event.getId()>=idStart.get() && addedN<amount.get()){
+                events.add(event);
+                addedN++;
+            }
+        }
+
+        return events;
+    }
+
 }

@@ -5,25 +5,11 @@ class WaterDepthSensorWidget extends Component {
 
     constructor(props) {
         super(props);
-        this.exampleData =
-        [{
-            id: 11630,
-            time: "2020-08-26T19:27:32.550+00:00",
-            deviceId: "8abb809773fedb7d0173fedb8ba60000",
-            depth: 4
-        },
-        {
-            id: 11631,
-            time: "2020-08-26T19:27:34.358+00:00",
-            deviceId: "8abb809773fedb7d0173fedb8ba60000",
-            depth: 3
-        },
-        {
-            id: 11632,
-            time: "2020-08-26T19:27:35.383+00:00",
-            deviceId: "8abb809773fedb7d0173fedb8ba60000",
-            depth: 4
-        }]
+        this.lastID = -1;
+        this.startBuffer=50;
+        this.maxLength=200;
+        this.currLength=0
+        this.latestID=0;
 
         this.state = {
             deviceID: props.deviceID,
@@ -59,35 +45,59 @@ class WaterDepthSensorWidget extends Component {
                     size: 0
                 },
                 xaxis: {
-                    categories: this.exampleData.map((data)=>data.time)
-                }
+                    type: 'datetime',
+                    categories: []
+                },
+                yaxis: {
+                    max: 300
+                },
+                legend: {
+                    show: false
+                },
             },
             series: [{
-                data: this.exampleData.map((data)=>data.depth)
+                data: []
             }],
-        }
-        console.log(this.state.deviceID);
+        };
     }
 
     fetchData= () =>{
-        fetch('/events?deviceId='+this.state.deviceID)
+        console.log(this.currLength);
+        console.log()
+        if(this.currLength>=this.maxLength) {
+            this.lastID = this.latestID-this.startBuffer;
+            console.log("Resizing");
+        }
+        fetch('/events/filter?deviceId='+this.state.deviceID+"&idStart="+this.lastID+"&amount="+this.maxLength)
             .then(response => response.json())
-            .then(data => this.setState({options: {
-                    xaxis: {
-                        categories: data.map((data)=>data.time).slice(Math.max(data.length - 10, 0))
-                    }
-                },
-                series: [{
-                    data: data.map((data)=>data.depth).slice(Math.max(data.length - 10, 0))
+            .then(data => {
+                console.log(data)
+                this.currLength = data.length;
+                this.latestID = data.pop().id;
+                this.setState({options: {
+                            xaxis: {
+                                categories: data.map((data)=>data.time)
+                            }
+                        },
+                        series: [{
+                            data: data.map((data)=>data.depth)
                         }]
-                }
-
-                ));
+                    }
+                );
+            });
     }
 
     componentDidMount(){
-        this.fetchData();
-        this.timer = setInterval(this.fetchData, 500);
+        fetch('/events/latest')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Hello1");
+                console.log(data);
+                console.log(data.id);
+                this.lastID = data.id-this.startBuffer;
+                this.fetchData();
+                this.timer = setInterval(this.fetchData, 500);
+            })
     }
     componentWillUnmount() {
         clearInterval(this.timer)
