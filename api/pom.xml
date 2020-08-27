@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>Mallington</groupId>
-	<artifactId>home-security-api</artifactId>
+	<artifactId>sensor-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>home-security-api</name>
-	<description>Manage sensors and home security IOT devices.</description>
+	<name>sensor-api</name>
+	<description>Manage sensors and IoT devices.</description>
 
 	<properties>
 		<java.version>1.8</java.version>

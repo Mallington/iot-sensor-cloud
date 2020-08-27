@@ -1,9 +1,7 @@
-package Mallington.homesecurityapi.service;
+package Mallington.sensorapi.service;
 
-import Mallington.homesecurityapi.model.PinConfiguration;
-import Mallington.homesecurityapi.model.SonicEvent;
-import Mallington.homesecurityapi.repository.PinConfigurationRepository;
-import Mallington.homesecurityapi.repository.SonicEventRepository;
+import Mallington.sensorapi.model.PinConfiguration;
+import Mallington.sensorapi.repository.PinConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;

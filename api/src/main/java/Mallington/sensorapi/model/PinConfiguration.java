@@ -1,6 +1,5 @@
-package Mallington.homesecurityapi.model;
+package Mallington.sensorapi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

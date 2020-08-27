@@ -1,9 +1,7 @@
-package Mallington.homesecurityapi.controller;
+package Mallington.sensorapi.controller;
 
-import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.model.DeviceInfo;
-import Mallington.homesecurityapi.repository.DeviceRepository;
-import Mallington.homesecurityapi.service.DeviceService;
+import Mallington.sensorapi.model.DeviceInfo;
+import Mallington.sensorapi.service.DeviceService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

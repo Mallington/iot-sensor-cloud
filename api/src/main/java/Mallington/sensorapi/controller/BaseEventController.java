@@ -1,7 +1,7 @@
-package Mallington.homesecurityapi.controller;
+package Mallington.sensorapi.controller;
 
-import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.service.BaseEventService;
+import Mallington.sensorapi.model.BaseEvent;
+import Mallington.sensorapi.service.BaseEventService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

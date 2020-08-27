@@ -1,6 +1,6 @@
-package Mallington.homesecurityapi.repository;
+package Mallington.sensorapi.repository;
 
-import Mallington.homesecurityapi.model.SonicEvent;
+import Mallington.sensorapi.model.SonicEvent;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

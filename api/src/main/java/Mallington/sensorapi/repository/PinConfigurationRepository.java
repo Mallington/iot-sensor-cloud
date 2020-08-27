@@ -1,7 +1,6 @@
-package Mallington.homesecurityapi.repository;
+package Mallington.sensorapi.repository;
 
-import Mallington.homesecurityapi.model.DeviceInfo;
-import Mallington.homesecurityapi.model.PinConfiguration;
+import Mallington.sensorapi.model.PinConfiguration;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,8 @@
-package Mallington.homesecurityapi.controller;
+package Mallington.sensorapi.controller;
 
 
-import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.model.WaterDepthEvent;
-import Mallington.homesecurityapi.service.BaseEventService;
-import Mallington.homesecurityapi.service.WaterDepthEventService;
+import Mallington.sensorapi.model.WaterDepthEvent;
+import Mallington.sensorapi.service.WaterDepthEventService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

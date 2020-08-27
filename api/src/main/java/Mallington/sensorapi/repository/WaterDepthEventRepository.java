@@ -1,7 +1,6 @@
-package Mallington.homesecurityapi.repository;
+package Mallington.sensorapi.repository;
 
-import Mallington.homesecurityapi.model.SonicEvent;
-import Mallington.homesecurityapi.model.WaterDepthEvent;
+import Mallington.sensorapi.model.WaterDepthEvent;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

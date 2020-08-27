@@ -1,12 +1,8 @@
-package Mallington.homesecurityapi.model;
+package Mallington.sensorapi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Hashtable;
 import java.util.List;
 
 @Entity(name = "DeviceInfo")

@@ -1,7 +1,6 @@
-package Mallington.homesecurityapi.repository;
+package Mallington.sensorapi.repository;
 
-import Mallington.homesecurityapi.model.DeviceInfo;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import Mallington.sensorapi.model.DeviceInfo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
