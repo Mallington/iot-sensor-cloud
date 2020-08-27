@@ -1,6 +1,4 @@
-package Mallington.homesecurityapi.model;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+package Mallington.sensorapi.model;
 
 import javax.persistence.Entity;
 

@@ -1,11 +1,10 @@
-package Mallington.homesecurityapi.service;
+package Mallington.sensorapi.service;
 
-import Mallington.homesecurityapi.model.DeviceInfo;
-import Mallington.homesecurityapi.repository.DeviceRepository;
-import Mallington.homesecurityapi.repository.PinConfigurationRepository;
+import Mallington.sensorapi.model.DeviceInfo;
+import Mallington.sensorapi.repository.DeviceRepository;
+import Mallington.sensorapi.repository.PinConfigurationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service

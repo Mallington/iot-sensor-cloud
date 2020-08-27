@@ -1,10 +1,7 @@
-package Mallington.homesecurityapi.service;
+package Mallington.sensorapi.service;
 
-import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.model.Identifiable;
-import org.springframework.beans.factory.annotation.Autowired;
+import Mallington.sensorapi.model.Identifiable;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 

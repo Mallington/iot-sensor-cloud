@@ -1,7 +1,7 @@
-package Mallington.homesecurityapi.controller;
+package Mallington.sensorapi.controller;
 
-import Mallington.homesecurityapi.model.Identifiable;
-import Mallington.homesecurityapi.service.CRUDServiceInterface;
+import Mallington.sensorapi.model.Identifiable;
+import Mallington.sensorapi.service.CRUDServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

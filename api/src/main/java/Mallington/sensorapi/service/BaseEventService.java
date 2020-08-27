@@ -1,10 +1,10 @@
-package Mallington.homesecurityapi.service;
+package Mallington.sensorapi.service;
 
-import Mallington.homesecurityapi.model.BaseEvent;
-import Mallington.homesecurityapi.model.SonicEvent;
-import Mallington.homesecurityapi.model.WaterDepthEvent;
-import Mallington.homesecurityapi.repository.SonicEventRepository;
-import Mallington.homesecurityapi.repository.WaterDepthEventRepository;
+import Mallington.sensorapi.model.BaseEvent;
+import Mallington.sensorapi.model.SonicEvent;
+import Mallington.sensorapi.model.WaterDepthEvent;
+import Mallington.sensorapi.repository.SonicEventRepository;
+import Mallington.sensorapi.repository.WaterDepthEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
