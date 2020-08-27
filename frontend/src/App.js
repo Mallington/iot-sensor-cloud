@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
   return (
-    <div class="App" >
+    <div className="App" >
         <div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>
         <div style= {{width:"50%", height:"100%", float:"left"}}>
             <DevicesCardCollection></DevicesCardCollection>
-            <WaterDepthSensorWidget></WaterDepthSensorWidget>
+            <WaterDepthSensorWidget deviceID={"8abb809773fedb7d0173fedb8ba60000"}></WaterDepthSensorWidget>
         </div>
     </div>
 
