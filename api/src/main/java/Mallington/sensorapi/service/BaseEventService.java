@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Integer>{
@@ -65,10 +66,11 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
 
         return list;
     }
-    //Not implemented
+
     @Override
     public BaseEvent latest() {
-        throw new NotImplementedException();
+        List<BaseEvent> list = (List<BaseEvent>)listObjects();
+        return list.get(list.size()-1);
     }
 
     private  <T extends BaseEvent> Integer createPrivate(T newObject) {

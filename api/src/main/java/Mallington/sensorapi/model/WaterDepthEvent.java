@@ -9,3 +9,4 @@ public class WaterDepthEvent extends BaseEvent {
         return depth;
     }
 }
+

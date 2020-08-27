@@ -19,5 +19,6 @@ private:
     void printHeader(String type, String request);
     bool connect();
     bool waitForResponce(int timeout);
+    bool gotEnough =false;
 };
 #endif

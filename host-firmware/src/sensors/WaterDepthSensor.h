@@ -11,12 +11,14 @@ public:
     virtual bool updateState(DynamicJsonDocument* deviceJSON);
 private:
     int sensorPower= 7;
-    int sensorPin = A0; //Equivelant to A0
+    int sensorPin = A5; //Equivelant to A0
     int val = 0;
     int avg =5;
     int avgs[5];
     int curr=0;
     int readSensor();
+    int getCurrentAvg();
+    bool gotEnough=false;
 };
 
 #endif

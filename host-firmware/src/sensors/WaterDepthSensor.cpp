@@ -4,19 +4,41 @@ bool WaterDepthSensor::setup(DynamicJsonDocument* deviceJSON){
     pinMode(sensorPin, INPUT);
     pinMode(sensorPower, OUTPUT);
 	digitalWrite(sensorPower, LOW);
+
+	for(int i=0; i<avg; i++) avgs[i]=0;
     return true;
 }
-int WaterDepthSensor::readSensor() {
+int WaterDepthSensor::readSensor() {      
 	digitalWrite(sensorPower, HIGH);	// Turn the sensor ON
-	delay(10);							// wait 10 milliseconds
-	val = analogRead(sensorPin);		// Read the analog value form sensor
+	delay(100);							// wait 10 milliseconds
+	int reading = analogRead(sensorPin);		// Read the analog value form sensor
 	digitalWrite(sensorPower, LOW);		// Turn the sensor OFF
-	return val;							// send current reading
+	return reading;							// send current reading
 }
+
+int WaterDepthSensor::getCurrentAvg(){
+	if(curr>=avg) curr=0;
+	
+	avgs[curr++] = readSensor();
+	Serial.println("RAW"+avgs[curr]);
+	int total =0;
+	for(int i=0; i<avg; i++){
+		Serial.print(String(avgs[i])+",");
+		 total+=avgs[i];
+		 }
+		 Serial.println("Data");
+
+	return total/avg;
+}
+
 void WaterDepthSensor::getData(DynamicJsonDocument* outputDocument){
-	int reading = readSensor();
-	Serial.println(reading);
-    (*outputDocument)["depth"]= reading;
+	while(!gotEnough && curr<avg) getCurrentAvg();
+	gotEnough = true;
+
+	int averageTotal = getCurrentAvg();
+	Serial.println(averageTotal);
+
+    (*outputDocument)["depth"]= averageTotal;
     (*outputDocument)["type"]= "WaterDepthEvent";
 }
 bool WaterDepthSensor::updateState(DynamicJsonDocument* deviceJSON){
