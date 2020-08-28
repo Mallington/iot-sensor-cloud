@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestController()
 @RequestMapping("/events")
@@ -62,6 +64,15 @@ public class BaseEventController extends BaseController<BaseEvent, Integer, Base
         }
 
         return events;
+    }
+
+    @RequestMapping(value="/latest", params = {"deviceId"})
+    BaseEvent latest(@RequestParam Optional<String> deviceId){
+
+            List<BaseEvent> events = (List<BaseEvent>) getService().listObjects();
+            Collections.reverse(events);
+            for(BaseEvent event : events) if(event.getDeviceId().equals(deviceId.get())) return event;
+            return null;
     }
 
 }
