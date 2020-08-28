@@ -36,6 +36,7 @@ class DeviceOverview extends React.Component {
         const mystyleBody = {
             color: "white",
             backgroundColor: "#2B2B2B",
+            height:200,
 
             fontFamily: "Roboto"
         };

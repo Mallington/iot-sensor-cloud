@@ -9,7 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import WaterDepthSensorWidget from './components/widgets/WaterDepthSensorWidget'
 import IMUSensorWidget from './components/widgets/IMUSensorWidget'
 import sidebar from './components/Sidebar'
+import { Container, Row, Col } from 'react-grid-system';
 import 'react-pro-sidebar/dist/css/styles.css';
+import "./styles/CardCollection.css"
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '50%',
@@ -25,15 +27,42 @@ const useStyles = makeStyles((theme) => ({
 function App() {
     const classes = useStyles();
   return (
-    <div className="App" >
-        <div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>
-        <div style= {{width:"50%", height:"100%", float:"left"}}>
-            <DevicesCardCollection></DevicesCardCollection>
-            <IMUSensorWidget deviceID={"8abb809774343cc001743447de0a0000"}/>
-            <WaterDepthSensorWidget deviceID={"8abb809773fedb7d0173fedb8ba60000"}></WaterDepthSensorWidget>
+      <div className="App" >
+        <Container style= {{height:"100%", width:"100%" ,paddingLeft:'0px', paddingRight:'0px',
+             marginLeft: 'auto',
+             marginRight: 'auto',
+             maxWidth: "2000px"
+        }}>
+            <Row style= {{height:"100%"}}>
+                <Col sm={2} tyle= {{height:"100%"}} >
+                    {sidebar}
+                </Col>
+                <Col  sm={9.5}>
+                    <Row><DevicesCardCollection></DevicesCardCollection></Row>
+                    <Row style={{ align: 'center'}}>
 
-        </div>
-    </div>
+                        <IMUSensorWidget style= {{paddingLeft:'50px'}} deviceID={"8abb809774343cc001743447de0a0000"}/>
+                        {/*<WaterDepthSensorWidget  deviceID={"8abb809773fedb7d0173fedb8ba60000"}/>*/}
+                    </Row>
+
+                </Col>
+            </Row>
+
+            {/*<div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>*/}
+            {/*<div style= {{width:"50%", height:"100%", float:"left"}}>*/}
+            {/*    <DevicesCardCollection></DevicesCardCollection>*/}
+
+            {/*    <ul className="hs full">*/}
+            {/*        <li><IMUSensorWidget deviceID={"8abb809774343cc001743447de0a0000"}/></li>*/}
+            {/*        <li><WaterDepthSensorWidget  deviceID={"8abb809773fedb7d0173fedb8ba60000"}/></li>*/}
+            {/*    </ul>*/}
+
+
+            {/*</div>*/}
+        </Container>
+      </div>
+
+
 
   );
 }
