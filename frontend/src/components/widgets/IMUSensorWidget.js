@@ -93,6 +93,7 @@ class WaterDepthSensorWidget extends Component {
             fontFamily: "Roboto",
             outline: "2px solid white",
 
+
         };
         return (
             <div className="line" style={mystyleBody} >

@@ -19,7 +19,7 @@ const sidebar = ()=>{
                     whiteSpace: 'nowrap',
                 }}
             >
-                Device Watcher
+                IoT Sensor Cloud
             </div>
         </SidebarHeader>
 
@@ -55,8 +55,8 @@ const sidebar = ()=>{
                         textDecoration: 'none'
                     }}
                 >
-                    <FaGithub size={'3em'}>hello</FaGithub>
-                    <span>Mallington/DeviceWatcher</span>
+                    <FaGithub size={'1em'}>hello</FaGithub>
+                    <span> Mallington/iot-sensor-cloud</span>
                 </a>
             </div>
         </SidebarFooter>

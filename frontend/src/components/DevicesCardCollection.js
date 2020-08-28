@@ -1,5 +1,6 @@
 import React from 'react';
 import DeviceOverview from "./DeviceOverview";
+import "../styles/CardCollection.css"
 class DevicesCardCollection extends React.Component{
     constructor(props) {
         super(props);
@@ -22,12 +23,17 @@ class DevicesCardCollection extends React.Component{
         clearInterval(this.timer)
     }
     render() {
+
         const components = (this.state.devices!=null)?
             this.state.devices.map((item) =>  <li key={item.id}><DeviceOverview deviceID={item.id}></DeviceOverview></li>)
             : (<h1>Loading</h1>);
         return(
-            <div style={{width: 400}}>
-            <ul>{components}</ul>
+            <div className="container">
+                <div className="item">
+                    <h3>Block for context</h3>
+                </div>
+
+            <ul className="hs full">{components}</ul>
             </div>
         )
     }
