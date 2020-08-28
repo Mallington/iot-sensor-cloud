@@ -11,7 +11,8 @@ import java.util.Date;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = SonicEvent.class, name = "SonicEvent"),
-        @JsonSubTypes.Type(value = WaterDepthEvent.class, name = "WaterDepthEvent")
+        @JsonSubTypes.Type(value = WaterDepthEvent.class, name = "WaterDepthEvent"),
+        @JsonSubTypes.Type(value = IMUSensorEvent.class, name = "IMUSensorEvent")
 })
 public abstract class BaseEvent implements Identifiable<Integer>{
     @Id

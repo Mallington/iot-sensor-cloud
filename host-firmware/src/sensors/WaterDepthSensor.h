@@ -7,7 +7,7 @@ class WaterDepthSensor : public ITask{
 public:
     WaterDepthSensor(String id);
     virtual bool setup(DynamicJsonDocument* deviceJSON);
-    virtual void getData(DynamicJsonDocument* outputDocument);
+    virtual bool getData(DynamicJsonDocument* outputDocument);
     virtual bool updateState(DynamicJsonDocument* deviceJSON);
 private:
     int sensorPower= 7;
@@ -19,6 +19,7 @@ private:
     int readSensor();
     int getCurrentAvg();
     bool gotEnough=false;
+    int last =-1;
 };
 
 #endif

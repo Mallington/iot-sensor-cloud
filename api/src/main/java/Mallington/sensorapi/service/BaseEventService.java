@@ -1,8 +1,10 @@
 package Mallington.sensorapi.service;
 
 import Mallington.sensorapi.model.BaseEvent;
+import Mallington.sensorapi.model.IMUSensorEvent;
 import Mallington.sensorapi.model.SonicEvent;
 import Mallington.sensorapi.model.WaterDepthEvent;
+import Mallington.sensorapi.repository.IMUSensorEventRepository;
 import Mallington.sensorapi.repository.SonicEventRepository;
 import Mallington.sensorapi.repository.WaterDepthEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,12 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     WaterDepthEventRepository waterDepthEventRepository;
     @Autowired
     SonicEventRepository sonicEventRepository;
+    @Autowired
+    IMUSensorEventRepository imuSensorEventRepository;
 
 
     private CrudRepository[] getIncludedRepositories(){
-        return new CrudRepository[]{this.waterDepthEventRepository, this.sonicEventRepository};
+        return new CrudRepository[]{this.waterDepthEventRepository, this.sonicEventRepository, this.imuSensorEventRepository};
     }
     private List<BaseEvent> appendRepositories(CrudRepository ...repositories){
         List<BaseEvent> events = new ArrayList<BaseEvent>();
@@ -36,6 +40,7 @@ public class BaseEventService  implements CRUDServiceInterface<BaseEvent, Intege
     private <T extends BaseEvent> CrudRepository<T, Integer> getRepository(Class<T> event){
         if(event.equals(WaterDepthEvent.class)) return (CrudRepository<T, Integer>) waterDepthEventRepository;
         else if(event.equals(SonicEvent.class)) return (CrudRepository<T, Integer>) sonicEventRepository;
+        else if(event.equals(IMUSensorEvent.class)) return (CrudRepository<T, Integer>) imuSensorEventRepository;
         return null;
     }
 

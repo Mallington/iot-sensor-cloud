@@ -31,15 +31,20 @@ int WaterDepthSensor::getCurrentAvg(){
 	return total/avg;
 }
 
-void WaterDepthSensor::getData(DynamicJsonDocument* outputDocument){
+bool WaterDepthSensor::getData(DynamicJsonDocument* outputDocument){
 	while(!gotEnough && curr<avg) getCurrentAvg();
 	gotEnough = true;
 
 	int averageTotal = getCurrentAvg();
 	Serial.println(averageTotal);
 
+	if(last==averageTotal) return false;
+	last=averageTotal;
+
     (*outputDocument)["depth"]= averageTotal;
     (*outputDocument)["type"]= "WaterDepthEvent";
+
+	return true;
 }
 bool WaterDepthSensor::updateState(DynamicJsonDocument* deviceJSON){
     return false;

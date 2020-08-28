@@ -7,7 +7,7 @@ class SonicSensor : public ITask{
 public:
     SonicSensor(String id);
     virtual bool setup(DynamicJsonDocument* deviceJSON);
-    virtual void getData(DynamicJsonDocument* outputJson);
+    virtual bool getData(DynamicJsonDocument* outputJson);
     virtual bool updateState(DynamicJsonDocument* deviceJSON);
 private:
     long duration; // variable for the duration of sound wave travel

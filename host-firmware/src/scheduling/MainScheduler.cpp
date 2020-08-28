@@ -19,12 +19,15 @@ void MainScheduler::tick(){
 
         DynamicJsonDocument doc(1024);
         for(int i=0; i< count(); i++){
-            doc["deviceId"]= tasks[i]->getDeviceID();
+            bool needsUpdate = tasks[i]->getData(&doc); 
 
-            tasks[i]->getData(&doc); 
-            String output;
-            serializeJson(doc, output);
-            String res = api->postRequest("/events/",output, "application/json", 100);
+            if(needsUpdate){
+                 doc["deviceId"]= tasks[i]->getDeviceID();
+                String output;
+                serializeJson(doc, output);
+                String res = api->postRequest("/events/",output, "application/json", 100);
+            }
+
             doc.clear();
         }
 
@@ -41,9 +44,9 @@ void MainScheduler::add(ITask* task){
 }
 
 void MainScheduler::setup(){
+    DynamicJsonDocument doc(1);
     for(int i=0; i< count(); i++){
             String deviceID = tasks[i]->getDeviceID(); 
-            DynamicJsonDocument doc(1024);
             tasks[i]->setup(&doc);
         }
 }
