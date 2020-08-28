@@ -9,7 +9,7 @@ class ITask{
 public:
     ITask(String deviceIDPass);
     virtual bool setup(DynamicJsonDocument* deviceJSON)=0;
-    virtual void getData(DynamicJsonDocument* outputJson)=0;
+    virtual bool getData(DynamicJsonDocument* outputJson)=0;
     virtual bool updateState(DynamicJsonDocument* deviceJSON)=0;
     String getDeviceID(); 
 private:

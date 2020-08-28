@@ -9,7 +9,7 @@ bool SonicSensor::setup(DynamicJsonDocument* deviceJSON){
   Serial.println("with Arduino UNO R3");
     return true;
 }
-void SonicSensor::getData(DynamicJsonDocument* outputJson){
+bool SonicSensor::getData(DynamicJsonDocument* outputJson){
     long start = millis();
     digitalWrite(trigPin, LOW);
    
@@ -27,7 +27,7 @@ void SonicSensor::getData(DynamicJsonDocument* outputJson){
     Serial.print("Distance: ");
     Serial.print(distance);
     Serial.println(" cm");
-    
+    return true;
 }
 bool SonicSensor::updateState(DynamicJsonDocument* deviceJSON){
     return false;

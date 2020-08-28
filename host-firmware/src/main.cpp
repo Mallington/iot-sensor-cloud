@@ -6,8 +6,10 @@
 #include <network/WiFiUtils.h>
 #include "run_parameters.h"
 #include <network/RestAPI.h> 
+
 #include <sensors/SonicSensor.h>
 #include <sensors/WaterDepthSensor.h>
+#include <sensors/IMUSensor.h>
 
 WiFiClient client;
 RestAPI api(API_ADDRESS, API_PORT, client);
@@ -27,8 +29,10 @@ void setup() {
     WiFiUtils.printWiFiStatus();
   }
     //Add sensor tasks
-    scheduler.add(new WaterDepthSensor("8abb809773fedb7d0173fedb8ba60000"));
+    //scheduler.add(new WaterDepthSensor("8abb809773fedb7d0173fedb8ba60000"));
+    scheduler.add(new IMUSensor("8abb809774343cc001743447de0a0000"));
     scheduler.setup();
+    Serial.println("Setup");
 }
 
 void loop() {
