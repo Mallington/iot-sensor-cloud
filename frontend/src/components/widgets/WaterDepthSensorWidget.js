@@ -117,21 +117,24 @@ class WaterDepthSensorWidget extends Component {
             .then(response => response.json())
             .then(data => {
                 this.currLength = data.length;
-                this.latestID = data.pop().id;
-                this.setState({lineChartOptions: {
-                            xaxis: {
-                                categories: data.map((data)=>data.time)
-                            }
-                        },
-                    lineChartSeries: [{
-                            data: data.map((data)=>data.depth)
-                        }],
-                    series:[{
-                        data: [data.pop().depth]
-                    }]
-                    }
-                );
-                console.log(this.state.series)
+                if(data.length>0) {
+                    this.latestID = data.pop().id;
+                    this.setState({
+                            lineChartOptions: {
+                                xaxis: {
+                                    categories: data.map((data) => data.time)
+                                }
+                            },
+                            lineChartSeries: [{
+                                data: data.map((data) => data.depth)
+                            }],
+                            series: [{
+                                data: [data.pop().depth]
+                            }]
+                        }
+                    );
+                    console.log(this.state.series)
+                }
             });
 
 
