@@ -4,21 +4,10 @@ import {faQuestion, faHome, faCog, faProjectDiagram, faCode} from "@fortawesome/
 import { FaGithub } from 'react-icons/fa';
 import React from "react";
 
-const sidebar = ()=>{
+const Sidebar = ({})=>{
     return(  <ProSidebar>
         <SidebarHeader>
-            <div
-                style={{
-                    padding: '24px',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    fontSize: 14,
-                    letterSpacing: '1px',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                }}
-            >
+            <div className="title">
                 IoT Sensor Cloud
             </div>
         </SidebarHeader>
@@ -62,4 +51,4 @@ const sidebar = ()=>{
         </SidebarFooter>
     </ProSidebar>);
 };
-export default sidebar();
+export default Sidebar;

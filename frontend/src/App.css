@@ -3,9 +3,38 @@
 .App {
   text-align: center;
   background-color: black;
-  width: 100%;
   height: 100%;
+  display: flex;
 }
+
+.title{
+  padding: 24px;
+  font-weight: bold;
+  font-size: 14pt;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.App main{
+  align-items: center;
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border: #ffffff;
+  border-style: solid;
+}
+.App main h1 {
+  color: #d63030;
+  display: flex;
+  align-items: center;
+  transform: translateX(-20px);
+}
+
 
 #root {
   height: 100vh;
