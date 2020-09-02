@@ -28,16 +28,14 @@ class DeviceOverview extends React.Component {
     render() {
         const mystyle = {
             color: "white",
-            backgroundColor: "black",
-            padding: "10px",
+            backgroundColor: "#22273E",
             fontFamily: "Roboto",
 
         };
         const mystyleBody = {
-            color: "white",
-            backgroundColor: "#2B2B2B",
-            height:200,
-
+            color: "#adadad",
+            background: '#222741',
+            height:'100%',
             fontFamily: "Roboto"
         };
         return (

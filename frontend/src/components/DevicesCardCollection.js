@@ -29,9 +29,6 @@ class DevicesCardCollection extends React.Component{
             : (<h1>Loading</h1>);
         return(
             <div className="container">
-                <div className="item">
-                    <h3>Block for context</h3>
-                </div>
 
             <ul className="hs full">{components}</ul>
             </div>

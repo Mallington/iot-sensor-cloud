@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts'
 import ReactApexChart  from 'react-apexcharts'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import DeviceConfig from "../../configs/DeviceConfig";
+import '../../styles/charts.css'
 
 class IMUSensorWidget extends Component {
 
@@ -94,7 +93,11 @@ class IMUSensorWidget extends Component {
         };
         return (
             // <span><ReactApexChart  style={mystyleBody} options={this.state.barChartOptions} type="bar" series={this.state.series}/></span>
-            <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            <div >
+                <h1 className="card-element">IMU Sensor XYZ levels</h1>
+                    <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            </div>
+
             //<h2 >hello</h2>
             // <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
         );
