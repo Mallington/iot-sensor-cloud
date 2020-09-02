@@ -3,7 +3,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faQuestion, faHome, faCog, faProjectDiagram, faCode} from "@fortawesome/free-solid-svg-icons";
 import { FaGithub } from 'react-icons/fa';
 import React from "react";
+import { Link } from 'react-router-dom';
 
+import '../styles/sidebar.css'
 const Sidebar = ({})=>{
     return(  <ProSidebar>
         <SidebarHeader>
@@ -16,12 +18,11 @@ const Sidebar = ({})=>{
             <Menu iconShape="circle">
                 <MenuItem
                     icon={<FontAwesomeIcon icon={faHome}/>}
-                >
-                    dashboard
+                >Dashboard <Link to="/" />
                 </MenuItem>
-                <MenuItem icon={<FontAwesomeIcon icon={faProjectDiagram}/>}> Projects</MenuItem>
-                <MenuItem icon={<FontAwesomeIcon icon={faCode}/>}> Device Manager</MenuItem>
-                <MenuItem icon={<FontAwesomeIcon icon={faCog}/>}> Preferences</MenuItem>
+                <MenuItem icon={<FontAwesomeIcon icon={faProjectDiagram}/>}>Projects <Link to="/projects" /></MenuItem>
+                <MenuItem icon={<FontAwesomeIcon icon={faCode}/>}>Device Manager <Link to="/devices" /></MenuItem>
+                <MenuItem icon={<FontAwesomeIcon icon={faCog}/>}>Preferences<Link to="/preferences" /></MenuItem>
             </Menu>
         </SidebarContent>
 
@@ -34,7 +35,7 @@ const Sidebar = ({})=>{
                 }}
             >
                 <a
-                    href="https://github.com/mallington"
+                    href="https://github.com/Mallington/iot-sensor-cloud"
                     target="_blank"
                     className="sidebar-btn"
                     rel="noopener noreferrer"
