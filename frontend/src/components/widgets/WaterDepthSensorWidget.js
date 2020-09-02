@@ -166,7 +166,11 @@ class WaterDepthSensorWidget extends Component {
 
         };
         return (
-            <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            <div>
+                <h1 className="card-element">Water level</h1>
+                <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            </div>
+
             // <h1>hello</h1>
             // <div className="line" style={mystyleBody} >
             //     <h2 style={mystyleBody}>Water Sensor</h2>
