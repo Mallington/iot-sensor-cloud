@@ -2,7 +2,7 @@
 
 .App {
   text-align: center;
-  background-color: black;
+  background-color: #ffffff;
   height: 100%;
   display: flex;
 }
@@ -20,18 +20,15 @@
 
 .App main{
   align-items: center;
-  padding: 24px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border: #ffffff;
-  border-style: solid;
+  background: #1B1E32;
 }
 .App main h1 {
   color: #d63030;
   display: flex;
-  align-items: center;
   transform: translateX(-20px);
 }
 

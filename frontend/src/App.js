@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import './App.css';
+import './styles/App.css';
 import DevicesCardCollection from './components/DevicesCardCollection'
 import DeviceForm from './components/DeviceForm'
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
@@ -11,13 +11,12 @@ import IMUSensorWidget from './components/widgets/IMUSensorWidget'
 import Sidebar from './components/Sidebar'
 import Main from './Main.js'
 import { Container, Row, Col } from 'react-grid-system';
-import 'react-pro-sidebar/dist/css/styles.css';
 import "./styles/CardCollection.css"
+import {BrowserRouter as Router} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '50%',
-        height: '50%',
-        backgroundColor: theme.palette.background.paper,
+        height: '50%'
     },
     gridList: {
         width: 1500,
@@ -30,8 +29,10 @@ function App() {
   return (
 
       <div className="App" >
-       <Sidebar/>
-       <Main/>
+          <Router>
+           <Sidebar/>
+           <Main/>
+          </Router>
 
             {/*<div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>*/}
             {/*<div style= {{width:"50%", height:"100%", float:"left"}}>*/}
