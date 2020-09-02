@@ -4,7 +4,7 @@ import ReactApexChart  from 'react-apexcharts'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import DeviceConfig from "../../configs/DeviceConfig";
 
-class WaterDepthSensorWidget extends Component {
+class IMUSensorWidget extends Component {
 
     constructor(props) {
         super(props);
@@ -14,7 +14,6 @@ class WaterDepthSensorWidget extends Component {
                 colors: ['#f1f1f1', '#66DA26', '#5c7a54', '#E91E63', '#FF9800'],
                 chart: {
                     type: 'bar',
-                    height: 20
                 },
                 plotOptions: {
                     bar: {
@@ -88,21 +87,18 @@ class WaterDepthSensorWidget extends Component {
     render() {
         const mystyleBody = {
             color: "white",
-            backgroundColor: "#000000",
-            width: 400,
             fontFamily: "Roboto",
-            outline: "2px solid white",
 
+            alignItems: 'center'
 
         };
         return (
-            <div className="line" style={mystyleBody} >
-                <h2 style={mystyleBody}>IMU Sensor</h2>
-                <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series} width="400" height="500"/>
-
-            </div>
+            // <span><ReactApexChart  style={mystyleBody} options={this.state.barChartOptions} type="bar" series={this.state.series}/></span>
+            <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            //<h2 >hello</h2>
+            // <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
         );
     }
 }
 
-export default WaterDepthSensorWidget;
+export default IMUSensorWidget;

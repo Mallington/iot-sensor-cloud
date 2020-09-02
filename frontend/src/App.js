@@ -32,7 +32,9 @@ function App() {
           <Router>
            <Sidebar/>
            <Main/>
+
           </Router>
+
 
             {/*<div style= {{width:"50%", height:"100%", float:"left"}}>{sidebar}</div>*/}
             {/*<div style= {{width:"50%", height:"100%", float:"left"}}>*/}
