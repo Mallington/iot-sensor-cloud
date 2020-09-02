@@ -62,7 +62,7 @@ class WaterDepthSensorWidget extends Component {
                 data: []
             }],
             barChartOptions : {
-                colors: ['#f1f1f1', '#66DA26', '#5c7a54', '#E91E63', '#FF9800'],
+                colors: ['#fbedc5', '#66DA26', '#5c7a54', '#E91E63', '#FF9800'],
                 chart: {
                     type: 'bar',
                     height: 20
@@ -107,13 +107,13 @@ class WaterDepthSensorWidget extends Component {
 
 
     fetchData= () =>{
-        console.log(this.currLength);
-        console.log()
+        //console.log(this.currLength);
+        //console.log()
         if(this.currLength>=this.maxLength) {
             this.lastID = this.latestID-this.startBuffer;
-            console.log("Resizing");
+            //console.log("Resizing");
         }
-        fetch('/events/filter?deviceId='+this.state.deviceID+"&idStart="+this.lastID+"&amount="+this.maxLength)
+        fetch('/events/filter?deviceId='+this.state.deviceID+"&idStart="+0+"&amount="+this.maxLength)
             .then(response => response.json())
             .then(data => {
                 this.currLength = data.length;
@@ -133,7 +133,7 @@ class WaterDepthSensorWidget extends Component {
                             }]
                         }
                     );
-                    console.log(this.state.series)
+                    //console.log(this.state.series)
                 }
             });
 
@@ -166,12 +166,14 @@ class WaterDepthSensorWidget extends Component {
 
         };
         return (
-            <div className="line" style={mystyleBody} >
-                <h2 style={mystyleBody}>Water Sensor</h2>
-                <Chart options={this.state.lineChartOptions} series={this.state.lineChartSeries} type="line" width="400"  height={"200"}/>
-                <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series} width="400" height="100"/>
-
-            </div>
+            <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+            // <h1>hello</h1>
+            // <div className="line" style={mystyleBody} >
+            //     <h2 style={mystyleBody}>Water Sensor</h2>
+            //     <Chart options={this.state.lineChartOptions} series={this.state.lineChartSeries} type="line" width="400"  height={"200"}/>
+            //     <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series} width="400" height="100"/>
+            //
+            // </div>
         );
     }
 }
