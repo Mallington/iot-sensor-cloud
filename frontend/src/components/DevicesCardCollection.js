@@ -5,7 +5,8 @@ class DevicesCardCollection extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            devices:null
+            devices:null,
+            projectTitle: props.projectTitle
         };
 
     }
@@ -28,9 +29,12 @@ class DevicesCardCollection extends React.Component{
             this.state.devices.map((item) =>  <li key={item.id}><DeviceOverview deviceID={item.id}></DeviceOverview></li>)
             : (<h1>Loading</h1>);
         return(
-            <div className="container">
-
-            <ul className="hs full">{components}</ul>
+            <div>
+            <h1>{this.state.projectTitle}</h1>
+            <div className="card-element" style={{background: '#1F2336',borderRadius:'2px'}}>
+            <ul className="hs full" style={{overflow: 'hidden'}}>{components}</ul>
+                <h1>+ Add New Device</h1>
+            </div>
             </div>
         )
     }
