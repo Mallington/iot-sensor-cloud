@@ -5,7 +5,9 @@ export default class ProjectsPage extends React.Component {
         return (
 
             <div>
-                <DevicesCardCollection></DevicesCardCollection>
+                <DevicesCardCollection projectTitle="Nano V3.0 | Application Demo"/>
+                <DevicesCardCollection projectTitle="Cat Food and Water"/>
+                <DevicesCardCollection projectTitle="Weather Station"/>
             </div>
         );
     }

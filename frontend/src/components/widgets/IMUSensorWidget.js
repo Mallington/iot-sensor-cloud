@@ -95,7 +95,10 @@ class IMUSensorWidget extends Component {
             // <span><ReactApexChart  style={mystyleBody} options={this.state.barChartOptions} type="bar" series={this.state.series}/></span>
             <div >
                 <h1 className="card-element">IMU Sensor XYZ levels</h1>
+                <div style={{overflow:false}}>
                     <ReactApexChart  options={this.state.barChartOptions} type="bar" series={this.state.series}/>
+                </div>
+
             </div>
 
             //<h2 >hello</h2>
