@@ -21,4 +21,13 @@ public class DeviceController extends BaseController<DeviceInfo,String, DeviceSe
         }
         return filtered;
     }
+    @RequestMapping(params = {"deviceType"})
+    public @ResponseBody()
+    Iterable<DeviceInfo> listObjectsByType(@RequestParam Optional<DeviceInfo.DeviceType> deviceType){
+        List<DeviceInfo> filtered = new ArrayList<>();
+        for(DeviceInfo device : getService().listObjects()){
+            if(deviceType.isPresent() && deviceType.get().equals(device.getDeviceType())) filtered.add(device);
+        }
+        return filtered;
+    }
 }
