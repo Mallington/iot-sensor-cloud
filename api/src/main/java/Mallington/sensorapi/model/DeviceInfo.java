@@ -8,7 +8,7 @@ import java.util.List;
 @Entity(name = "DeviceInfo")
 @Table(name="device_info")
 public class DeviceInfo implements Identifiable<String>{
-    enum DeviceType{
+    public enum DeviceType{
         HOST, SENSOR
     }
 
