@@ -106,8 +106,8 @@ class HostDevicesTable  extends React.Component {
                       pagination={ true }
                       search={ true }>
 
-                      <TableHeaderColumn  dataField='id' dataFormat={deviceIDFormat} isKey={ true }>Product ID</TableHeaderColumn>
-                      <TableHeaderColumn dataField='deviceName' dataSort={true} >Product Name</TableHeaderColumn>
+                      <TableHeaderColumn  dataField='id' dataFormat={deviceIDFormat} isKey={ true }>Device ID</TableHeaderColumn>
+                      <TableHeaderColumn dataField='deviceName' dataSort={true} >Device Name</TableHeaderColumn>
                       <TableHeaderColumn dataField='deviceType' dataFormat={deviceTypeFormat} dataSort={true} >Device Type</TableHeaderColumn>
                       <TableHeaderColumn dataField='outputDataType' dataFormat={outputDataFormat} dataSort={true} >Output Data</TableHeaderColumn>
 
