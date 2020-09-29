@@ -21,11 +21,26 @@ const columns = [{
 
 const iconSize = '2em';
 const buttonColumnWidth = 75;
+
+const deleteDevice = (id)=>{
+    alert("Deleting: "+id)
+};
+
+const constructButton =(icon, runnable)=>{
+    return (<div style={{
+    color: 'grey',
+    display: 'inline-block',
+    paddingLeft: '20px'
+
+    }}>{icon}</div>);
+};
+
+
 const editDeviceFormat = (cell, row)=>{
                              console.log(cell);
                              console.log(row);
 
-                             return (row.deviceType=="HOST")?(<VscSettingsGear size={iconSize}/>) : '';
+                             return (row.deviceType=="HOST")? constructButton(<VscSettingsGear size={iconSize}/>, ()=>{}) : '';
                          };
 const outputDataFormat = (cell, row)=>{
          return (row.outputDataType==null)?("Not set") : row.outputDataType;
@@ -33,22 +48,21 @@ const outputDataFormat = (cell, row)=>{
 const installFirmwareFormat = (cell, row)=>{
                              console.log(cell);
                              console.log(row);
-                             return (row.deviceType=="HOST")?(<RiInstallLine size={iconSize}/>): '';
+                             return (row.deviceType=="HOST")?constructButton(<RiInstallLine size={iconSize}/>, ()=>{}) : '';
                          };
 const deleteDeviceFormat = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-                            return (<VscTrash size={iconSize}/>);
+
+                            return (constructButton(<VscTrash size={iconSize}/>, ()=>{}));
                          };
 const downloadFirmwareFormat = (cell, row)=>{
                              console.log(cell);
                              console.log(row);
-                             return (row.deviceType=="HOST")?(<VscCloudDownload size={iconSize}/>): '';
+                             return (row.deviceType=="HOST")?(constructButton(<VscCloudDownload size={iconSize}/>, ()=>{})): '';
                          };
 const eventsLog = (cell, row)=>{
                              console.log(cell);
                              console.log(row);
-                             return (<VscListSelection size={iconSize}/>);
+                             return (constructButton(<VscListSelection size={iconSize}/>, ()=>{}));
                          };
 const deviceTypeFormat = (cell, row)=>{
                              console.log(cell);
@@ -62,6 +76,13 @@ const deviceTypeFormat = (cell, row)=>{
 const deviceIDFormat = (cell, row)=>{
                               return ".."+cell.slice(Math.max(cell.length - 10, 1));
                               };
+const compileButtons=(cell, row)=>{
+
+    return (<div >
+    {installFirmwareFormat(cell,row)}{downloadFirmwareFormat(cell,row)}
+    {editDeviceFormat(cell, row)}{eventsLog(cell, row)}
+    {deleteDeviceFormat(cell, row)}</div>);
+};
 
 class HostDevicesTable  extends React.Component {
         constructor(props) {
@@ -106,17 +127,12 @@ class HostDevicesTable  extends React.Component {
                       pagination={ true }
                       search={ true }>
 
-                      <TableHeaderColumn  dataField='id' dataFormat={deviceIDFormat} isKey={ true }>Device ID</TableHeaderColumn>
+                      <TableHeaderColumn width={150} dataField='id' dataFormat={deviceIDFormat} isKey={ true }>Device ID</TableHeaderColumn>
                       <TableHeaderColumn dataField='deviceName' dataSort={true} >Device Name</TableHeaderColumn>
-                      <TableHeaderColumn dataField='deviceType' dataFormat={deviceTypeFormat} dataSort={true} >Device Type</TableHeaderColumn>
+                      <TableHeaderColumn  width={150} dataField='deviceType' dataFormat={deviceTypeFormat} dataSort={true} >Device Type</TableHeaderColumn>
                       <TableHeaderColumn dataField='outputDataType' dataFormat={outputDataFormat} dataSort={true} >Output Data</TableHeaderColumn>
 
-                      <TableHeaderColumn width = {buttonColumnWidth} dataField='id' dataFormat={installFirmwareFormat}/>
-                      <TableHeaderColumn width = {buttonColumnWidth} dataField='id' dataFormat={downloadFirmwareFormat}/>
-
-                       <TableHeaderColumn width = {buttonColumnWidth} dataField='id' dataFormat={editDeviceFormat}/>
-                       <TableHeaderColumn width = {buttonColumnWidth} dataField='id' dataFormat={eventsLog}/>
-                      <TableHeaderColumn width = {buttonColumnWidth} dataField='id' dataFormat={deleteDeviceFormat}/>
+                      <TableHeaderColumn dataField='id' width={300} dataFormat={compileButtons}/>
 
 
 
