@@ -22,10 +22,7 @@ const columns = [{
 const iconSize = '2em';
 const buttonColumnWidth = 75;
 
-const deleteDevice = (id)=>{
-    alert("Deleting: "+id)
-};
-
+//Buttons
 const constructButton =(icon, runnable)=>{
     return (<div style={{
     color: 'grey',
@@ -35,54 +32,28 @@ const constructButton =(icon, runnable)=>{
     }}>{icon}</div>);
 };
 
+const editDeviceFormat = (cell, row)=>(row.deviceType=="HOST")? constructButton(<VscSettingsGear size={iconSize}/>, ()=>{}) : '';
+const outputDataFormat = (cell, row)=>(row.outputDataType==null)?("Not set") : row.outputDataType;
+const installFirmwareFormat = (cell, row)=>(row.deviceType=="HOST")?constructButton(<RiInstallLine size={iconSize}/>, ()=>{}) : '';
+const deleteDeviceFormat = (cell, row)=>(constructButton(<VscTrash size={iconSize}/>, ()=>{}));
+const downloadFirmwareFormat = (cell, row)=> (row.deviceType=="HOST")?(constructButton(<VscCloudDownload size={iconSize}/>, ()=>{})): '';
+const eventsLog = (cell, row)=>(constructButton(<VscListSelection size={iconSize}/>, ()=>{}));
 
-const editDeviceFormat = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-
-                             return (row.deviceType=="HOST")? constructButton(<VscSettingsGear size={iconSize}/>, ()=>{}) : '';
-                         };
-const outputDataFormat = (cell, row)=>{
-         return (row.outputDataType==null)?("Not set") : row.outputDataType;
-};
-const installFirmwareFormat = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-                             return (row.deviceType=="HOST")?constructButton(<RiInstallLine size={iconSize}/>, ()=>{}) : '';
-                         };
-const deleteDeviceFormat = (cell, row)=>{
-
-                            return (constructButton(<VscTrash size={iconSize}/>, ()=>{}));
-                         };
-const downloadFirmwareFormat = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-                             return (row.deviceType=="HOST")?(constructButton(<VscCloudDownload size={iconSize}/>, ()=>{})): '';
-                         };
-const eventsLog = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-                             return (constructButton(<VscListSelection size={iconSize}/>, ()=>{}));
-                         };
-const deviceTypeFormat = (cell, row)=>{
-                             console.log(cell);
-                             console.log(row);
-                             return <div>
-                              <FontAwesomeIcon icon={DeviceConfig.GetIcon(row.deviceType)}/>
-                             {"     "+row.deviceType}
-
-                             </div>;
-                             }
-const deviceIDFormat = (cell, row)=>{
-                              return ".."+cell.slice(Math.max(cell.length - 10, 1));
-                              };
 const compileButtons=(cell, row)=>{
-
     return (<div >
     {installFirmwareFormat(cell,row)}{downloadFirmwareFormat(cell,row)}
     {editDeviceFormat(cell, row)}{eventsLog(cell, row)}
     {deleteDeviceFormat(cell, row)}</div>);
 };
+
+//Button actions
+const deleteDevice = (id)=>{
+    alert("Deleting: "+id)
+};
+
+//Data Fields
+const deviceTypeFormat = (cell, row)=><div><FontAwesomeIcon icon={DeviceConfig.GetIcon(row.deviceType)}/>{"     "+row.deviceType}</div>;
+const deviceIDFormat = (cell, row)=>".."+cell.slice(Math.max(cell.length - 10, 1));
 
 class HostDevicesTable  extends React.Component {
         constructor(props) {
