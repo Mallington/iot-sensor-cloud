@@ -1,16 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './styles/App.css';
-import DevicesCardCollection from './components/DevicesCardCollection'
-import DeviceForm from './components/DeviceForm'
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarHeader, SidebarContent } from 'react-pro-sidebar';
-import { faServer, faQuestion, faTachometerAlt, git } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import WaterDepthSensorWidget from './components/widgets/WaterDepthSensorWidget'
-import IMUSensorWidget from './components/widgets/IMUSensorWidget'
+import './styles/sidebar-breakpoints.scss'
+
 import Sidebar from './components/Sidebar'
 import Main from './Main.js'
-import { Container, Row, Col } from 'react-grid-system';
+
 import "./styles/CardCollection.css"
 import {BrowserRouter as Router} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({

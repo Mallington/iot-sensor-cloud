@@ -482,3 +482,9 @@ table.table-bordered > tbody > tr > td{
     border-color: #1F2336;
     text-align: left;
 }
+
+.btn-default {
+    color:#fff;
+    background-color:#22273E;
+    border-color:#22273E
+}

@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 
 import '../styles/sidebar.css'
 const Sidebar = ({})=>{
-    return(  <ProSidebar>
+    return(  <ProSidebar
+        breakPoint="md">
         <SidebarHeader>
             <div className="title">
                 IoT Sensor Cloud
