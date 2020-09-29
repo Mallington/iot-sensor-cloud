@@ -8,6 +8,19 @@ import java.util.List;
 @Entity(name = "DeviceInfo")
 @Table(name="device_info")
 public class DeviceInfo implements Identifiable<String>{
+
+    public DeviceInfo() {
+    }
+
+    public DeviceInfo(String id, String deviceName, DeviceType deviceType, String parentId, String outputDataType, List<PinConfiguration> pinMap) {
+        this.id = id;
+        this.deviceName = deviceName;
+        this.deviceType = deviceType;
+        this.parentId = parentId;
+        this.outputDataType = outputDataType;
+        this.pinMap = pinMap;
+    }
+
     public enum DeviceType{
         HOST, SENSOR
     }
