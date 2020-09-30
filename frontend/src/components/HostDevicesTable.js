@@ -6,7 +6,7 @@ import DeviceConfig from '../configs/DeviceConfig'
 import '../styles/react-table.css'
 
 
-import { RiInstallLine } from 'react-icons/ri';
+import { RiArrowRightLine } from 'react-icons/ri';
 import { VscListSelection,VscCloudDownload, VscTrash, VscSettingsGear } from "react-icons/vsc";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -55,7 +55,7 @@ class HostDevicesTable  extends React.Component {
 
                 this.editDeviceFormat = (cell, row)=>(row.deviceType=="HOST")? this.constructButton(<VscSettingsGear size={iconSize}/>, ()=>{}) : '';
                 this.outputDataFormat = (cell, row)=>(row.outputDataType==null)?("Not set") : row.outputDataType;
-                this.installFirmwareFormat = (cell, row)=>(row.deviceType=="HOST")?this.constructButton(<RiInstallLine size={iconSize}/>, ()=>{}) : '';
+                this.installFirmwareFormat = (cell, row)=>(row.deviceType=="HOST")?this.constructButton(<RiArrowRightLine size={iconSize}/>, ()=>{}) : '';
                 this.deleteDeviceFormat = (cell, row)=>(this.constructButton(<VscTrash size={iconSize}/>, ()=>this.deleteDevice(row.id)));
                 this.downloadFirmwareFormat = (cell, row)=> (row.deviceType=="HOST")?(this.constructButton(<VscCloudDownload size={iconSize}/>, ()=>{})): '';
                 this.eventsLog = (cell, row)=>(this.constructButton(<VscListSelection size={iconSize}/>, ()=>{}));
