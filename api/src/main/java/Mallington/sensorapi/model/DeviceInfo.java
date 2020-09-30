@@ -31,7 +31,7 @@ public class DeviceInfo implements Identifiable<String>{
     private String id;
 
     @Column(nullable = false)
-    private String deviceConfigurationID;
+    private String deviceConfigurationId;
 
     private String deviceName;
 
@@ -79,10 +79,10 @@ public class DeviceInfo implements Identifiable<String>{
     }
 
     public String getDeviceConfigurationID() {
-        return deviceConfigurationID;
+        return deviceConfigurationId;
     }
 
     public void setDeviceConfigurationID(String deviceConfigurationID) {
-        this.deviceConfigurationID = deviceConfigurationID;
+        this.deviceConfigurationId = deviceConfigurationID;
     }
 }
