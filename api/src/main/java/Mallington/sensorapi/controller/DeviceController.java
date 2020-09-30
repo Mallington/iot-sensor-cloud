@@ -1,7 +1,10 @@
 package Mallington.sensorapi.controller;
 
+import Mallington.sensorapi.model.DeviceConfiguration;
 import Mallington.sensorapi.model.DeviceInfo;
+import Mallington.sensorapi.service.DeviceConfigurationService;
 import Mallington.sensorapi.service.DeviceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,6 +14,8 @@ import java.util.Optional;
 @RestController()
 @RequestMapping("/devices")
 public class DeviceController extends BaseController<DeviceInfo,String, DeviceService> {
+    @Autowired
+    DeviceConfigurationService configurationService;
 
     @RequestMapping(params = {"parentId"})
     public @ResponseBody()
@@ -29,5 +34,13 @@ public class DeviceController extends BaseController<DeviceInfo,String, DeviceSe
             if(deviceType.isPresent() && deviceType.get().equals(device.getDeviceType())) filtered.add(device);
         }
         return filtered;
+    }
+
+    @RequestMapping("/{id}/configuration")
+    public @ResponseBody
+    DeviceConfiguration getDeviceConfiguration(@PathVariable String id){
+        DeviceInfo device = service.getByID(id);
+        if(device==null || device.getDeviceConfigurationID()==null) return null;
+        return configurationService.getByID(device.getDeviceConfigurationID());
     }
 }

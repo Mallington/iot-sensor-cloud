@@ -3,6 +3,7 @@ package Mallington.sensorapi.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity(name = "DeviceConfiguration")
 @Table(name="device_configuration")
@@ -18,6 +19,7 @@ public class DeviceConfiguration implements Identifiable<String>{
     private String wifiPassword;
     private String apiEndpoint;
     private int port;
+    @Column(length = 15000)
     private String firmwareBinaries;
 
 
