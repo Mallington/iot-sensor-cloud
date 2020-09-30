@@ -30,6 +30,9 @@ public class DeviceInfo implements Identifiable<String>{
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
 
+    @Column(nullable = false)
+    private String deviceConfigurationID;
+
     private String deviceName;
 
     private DeviceType deviceType;
@@ -73,5 +76,13 @@ public class DeviceInfo implements Identifiable<String>{
     public void setPinMap(List<PinConfiguration> pinMap) {
         this.pinMap = pinMap;
         pinMap.forEach(entity -> entity.setDeviceInfo(this));
+    }
+
+    public String getDeviceConfigurationID() {
+        return deviceConfigurationID;
+    }
+
+    public void setDeviceConfigurationID(String deviceConfigurationID) {
+        this.deviceConfigurationID = deviceConfigurationID;
     }
 }
