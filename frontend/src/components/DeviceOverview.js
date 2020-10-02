@@ -30,6 +30,8 @@ class DeviceOverview extends React.Component {
             color: "white",
             backgroundColor: "#22273E",
             fontFamily: "Roboto",
+            margin: 'auto',
+
 
         };
         const mystyleBody = {
@@ -37,6 +39,7 @@ class DeviceOverview extends React.Component {
             background: '#222741',
             height:'100%',
             fontFamily: "Roboto"
+
         };
         return (
 

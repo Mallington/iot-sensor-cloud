@@ -8,6 +8,7 @@ import DevicesCardCollection from "../components/DevicesCardCollection";
 import IMUSensorWidget from "../components/widgets/IMUSensorWidget"
 import WaterDepthSensorWidget from "../components/widgets/WaterDepthSensorWidget";
 import GettingStartedWidget from "../components/widgets/GettingStartedWidget";
+import DeviceOverview from "../components/DeviceOverview";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 
@@ -31,7 +32,8 @@ export default class ShowcaseLayout extends React.Component {
 
     generateDOM() {
         const widgets = [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
-                <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />];
+                <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />,
+            <DeviceOverview deviceID="8abb809774de86d40174de8e556e0002"></DeviceOverview>];
 
 
         return widgets.map(function(widget, key) {
@@ -94,7 +96,7 @@ ShowcaseLayout.defaultProps = {
 function generateLayout() {
     return [{x:0, y: 0, w: 4, h: 10, i: "0", static: false},
      {x: 4, y: 0, w: 4, h: 10, i: "1", static: false},
-     {x: 8, y: 0, w: 4, h: 10, i: "2", static: false},
+     {x: 16, y: 0, w: 4, h: 10, i: "2", static: false},
      {x: 0, y: 10, w: 4, h: 10, i: "3", static: false},
     {x: 4, y: 10, w: 4, h: 10, i: "4", static: false},
     {x: 8, y: 10, w: 4, h: 10, i: "5", static: false}];

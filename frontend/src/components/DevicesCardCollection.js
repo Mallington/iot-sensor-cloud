@@ -25,7 +25,7 @@ class DevicesCardCollection extends React.Component{
     }
     render() {
 
-        const components = (this.state.devices!=null)?
+      const components = (this.state.devices!=null)?
             this.state.devices.map((item) =>  <li key={item.id}><DeviceOverview deviceID={item.id}></DeviceOverview></li>)
             : (<h1>Loading</h1>);
         return(
@@ -37,6 +37,18 @@ class DevicesCardCollection extends React.Component{
             </div>
             </div>
         )
+
+        // const components = (this.state.devices!=null)?
+        //     this.state.devices.map((item) =>  <li key={item.id}><DeviceOverview deviceID={item.id}></DeviceOverview></li>)
+        //     : (<h1>Loading</h1>);
+        //
+        // return (
+        //     <Container>
+        //
+        //     </Container>
+        //
+        //
+        // );
     }
 }
 export default DevicesCardCollection;
