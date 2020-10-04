@@ -5,9 +5,12 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import DevicesCardCollection from "../components/DevicesCardCollection";
+
 import IMUSensorWidget from "../components/widgets/IMUSensorWidget"
 import WaterDepthSensorWidget from "../components/widgets/WaterDepthSensorWidget";
 import GettingStartedWidget from "../components/widgets/GettingStartedWidget";
+import NotImplementedWidget from "../components/widgets/NotImplementedWidget";
+
 import DeviceOverview from "../components/DeviceOverview";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -19,21 +22,34 @@ export default class ShowcaseLayout extends React.Component {
             currentBreakpoint: "lg",
             compactType: "horizontal",
             mounted: false,
-            layouts: { lg: props.initialLayout }
+            layouts: { lg: props.initialLayout },
+            sensors: []
         };
 
         this.onLayoutChange = this.onLayoutChange.bind(this);
         this.onNewLayout = this.onNewLayout.bind(this);
+
+        this.componentMap = {"IMUSensorEvent":(deviceID)=><IMUSensorWidget deviceID={deviceID}/>,
+            "WaterDepthEvent":(deviceID)=><WaterDepthSensorWidget deviceID={deviceID}/>,
+            default: (deviceID)=><NotImplementedWidget deviceID={deviceID}/>
+        };
+
     }
 
     componentDidMount() {
         this.setState({ mounted: true });
     }
 
+    mapComponents(){
+        return '';
+    }
+
     generateDOM() {
         const widgets = [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
                 <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />,
             <DeviceOverview deviceID="8abb809774de86d40174de8e556e0002"></DeviceOverview>];
+
+        //widgets.append(this.state.sensors);
 
 
         return widgets.map(function(widget, key) {
