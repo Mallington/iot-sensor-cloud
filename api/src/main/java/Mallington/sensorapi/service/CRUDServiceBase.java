@@ -51,7 +51,7 @@ public abstract class CRUDServiceBase<data extends Identifiable<primary>, primar
         @Override
         @Transactional
         public primary create(@RequestBody data newObject){
-            System.out.println("This one 0");return getRepository().save(newObject).getId();
+            return getRepository().save(newObject).getId();
         }
 
         @Override
@@ -67,7 +67,6 @@ public abstract class CRUDServiceBase<data extends Identifiable<primary>, primar
 
         @Override
         public String update(data newObject) {
-            System.out.println("This one 1");
             Optional<data> ret = getRepository().findById(newObject.getId());
             if(ret.isPresent()){
                 data existing =  ret.get();
