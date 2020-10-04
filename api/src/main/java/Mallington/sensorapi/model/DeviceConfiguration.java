@@ -8,7 +8,9 @@ import javax.validation.constraints.Size;
 @Entity(name = "DeviceConfiguration")
 @Table(name="device_configuration")
 public class DeviceConfiguration implements Identifiable<String>{
-
+    public enum FirmwareBuildStatus{
+        NOT_BUILT, BUILDING, BUILD_FAILED, COMPLETE
+    }
     @Column(name="configuration_id")
     @Id
     @GeneratedValue(generator="system-uuid")
@@ -21,6 +23,8 @@ public class DeviceConfiguration implements Identifiable<String>{
     private int port;
     @Column(length = 15000)
     private String firmwareBinaries;
+    @Column(nullable = false)
+    private FirmwareBuildStatus firmwareStatus = FirmwareBuildStatus.NOT_BUILT;
 
 
     public DeviceConfiguration(){}
@@ -63,6 +67,18 @@ public class DeviceConfiguration implements Identifiable<String>{
 
     public void setFirmwareBinaries(String firmwareBinaries) {
         this.firmwareBinaries = firmwareBinaries;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public FirmwareBuildStatus getFirmwareStatus() {
+        return firmwareStatus;
+    }
+
+    public void setFirmwareStatus(FirmwareBuildStatus firmwareStatus) {
+        this.firmwareStatus = firmwareStatus;
     }
 
     @Override
