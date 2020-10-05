@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import ProjectsPage from "./pages/ProjectsPage";
 import DevicesPage from "./pages/DevicesPage";
 import DeviceSettingsPage from "./pages/DeviceSettingsPage";
+import UploadPage from "./pages/UploadPage";
 
 const Main = () => {
     return (
@@ -17,6 +18,7 @@ const Main = () => {
                     <Route path="/projects"><ProjectsPage/></Route>
                     <Route path="/devices/"><DevicesPage/></Route>
                     <Route path="/device-settings"><DeviceSettingsPage/></Route>
+                    <Route path="/upload"><UploadPage/></Route>
                 </Switch>
         </main>
     );
