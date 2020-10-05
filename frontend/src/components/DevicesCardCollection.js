@@ -2,6 +2,7 @@ import React from 'react';
 import DeviceOverview from "./DeviceOverview";
 import "../styles/CardCollection.css"
 import HorizontalScroll from 'react-scroll-horizontal'
+import Button from 'react-bootstrap/Button'
 class DevicesCardCollection extends React.Component{
     constructor(props) {
         super(props);
@@ -36,7 +37,7 @@ class DevicesCardCollection extends React.Component{
             width: '90%',
             border: '3px dashed white',
             marginTop:'2.5%',
-
+            cursor: 'pointer'
 
         }
       const components = (this.state.devices!=null)?
@@ -45,15 +46,16 @@ class DevicesCardCollection extends React.Component{
         return(
             <div>
             <h1>{this.state.host.deviceName}</h1>
-            <div style={parent} >
+            <div style={parent}   >
 
 
                 <HorizontalScroll animValues={10000} style={{textAlign: 'left'}}>
                         <div style={child}><DeviceOverview deviceID={this.state.host.id}/></div>
 
-                    <div style={child}>
+                    <div style={child} onClick={()=> window.open("/device-settings")}>
                         <div style={mystyleBody}>
-                            <h1 style={{ backgroundColor: "#22273E", textAlign:'center'}}>+ Add a new device</h1>
+
+                            <h1  style={{ backgroundColor: "#22273E", textAlign:'center'}}>+ Add a new device</h1>
                         </div>
 
 

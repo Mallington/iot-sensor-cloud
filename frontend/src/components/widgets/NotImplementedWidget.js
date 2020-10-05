@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/welcome-card.css'
-import Button from 'react-bootstrap/Button'
+
 import {Link} from "react-router-dom";
 import {MenuItem} from "react-pro-sidebar";
 import DeviceConfig from "../../configs/DeviceConfig";

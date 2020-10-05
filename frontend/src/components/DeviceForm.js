@@ -2,6 +2,7 @@ import React from 'react';
 import DeviceConfig from "../configs/DeviceConfig";
 import Form from "react-bootstrap/Form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Button from 'react-bootstrap/Button'
 const pinConfig= (pinType=null, hostPin,nodePin)=>{
     return {
         pinType: (pinType==null)? "DIGITAL": pinType,
@@ -26,7 +27,6 @@ class DeviceForm extends React.Component{
             hosts:[],
             ready:false
         }
-
         };
 
     fetchData= () =>{
@@ -42,14 +42,23 @@ class DeviceForm extends React.Component{
     componentWillUnmount() {
         clearInterval(this.timer)
     }
-
+    submit() {
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.state.device)
+        };
+        fetch('/devices', requestOptions)
+            .then(response => console.log(response)).catch(error=>console.log(error));
+        window.open("/projects");
+    }
 
 
 
     render(){
-        var handleChange =(event) =>{
+        var handleChange =(event, field) =>{
             var copy = this.state.device;
-            copy.deviceType= event.target.value;
+            copy[field]= event.target.value;
             this.setState({device:copy});
             console.log(this.state.device)
         };
@@ -62,16 +71,16 @@ class DeviceForm extends React.Component{
                 </div>
 
             <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Group controlId="exampleForm.ControlSelect1" >
                     <Form.Label>Device type</Form.Label>
-                    <Form.Control value={this.state.device.deviceType} onChange={handleChange}  as="select">
+                    <Form.Control value={this.state.device.deviceType} onChange={(e)=>handleChange(e, "deviceType")}  as="select">
                         <option>HOST</option>
                         <option>SENSOR</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Device Name</Form.Label>
-                    <Form.Control  placeholder="Fancy Name" >{this.state.deviceName}</Form.Control>
+                    <Form.Control  placeholder="Fancy Name" onChange={(e)=>handleChange(e, "deviceName")} >{this.state.deviceName}</Form.Control>
                 </Form.Group>
 
                 {(this.state.device.deviceType==="HOST")?
@@ -96,15 +105,15 @@ class DeviceForm extends React.Component{
                     ( <div>
                         <Form.Group controlId="exampleForm.ControlSelect2" >
                         <Form.Label>Select a parent</Form.Label>
-                        <Form.Control as="select">
-                            <option>Orphan</option>
-                            {this.state.hosts.map( (host)=><option key={host.id}>{host.deviceName}</option>)}
+                        <Form.Control as="select" onChange={(e)=>handleChange(e, "parentId")}>
+                            <option value={""}>Orphan</option>
+                            {this.state.hosts.map( (host)=><option value={host.id} key={host.id}>{host.deviceName}</option>)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect3" >
                     <Form.Label>Select an output</Form.Label>
-                    <Form.Control as="select">
-                        <option>No Output</option>
+                    <Form.Control onChange={(e)=>handleChange(e, "outputDataType")} as="select">
+                        <option value={""}>No Output</option>
                         <option>IMUSensorEvent</option>
                         <option>SonicEvent</option>
                         <option>WaterDepthEvent</option>
@@ -115,7 +124,7 @@ class DeviceForm extends React.Component{
 
                 }
 
-
+                <Button onClick={()=>this.submit()}  style={{backgroundColor: 'transparent',borderColor:'white', width:'80%', marginLeft:'10%', marginRight:'10%' }}variant="outline-light">Create</Button>
 
             </Form>
             </div>
