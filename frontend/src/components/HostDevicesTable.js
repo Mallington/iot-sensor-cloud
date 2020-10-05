@@ -104,7 +104,7 @@ class HostDevicesTable  extends React.Component {
         borderColor: 'blue'
         }} className="tableT">
 
-            <DeviceEventLog/>
+
 
              <BootstrapTable
 

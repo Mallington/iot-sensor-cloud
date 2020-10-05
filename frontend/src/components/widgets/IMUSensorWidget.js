@@ -47,10 +47,10 @@ class IMUSensorWidget extends Component {
                 },
             },
             series: [{
-                data: []
+                data: [10,5,2]
             }, {
-                    data: []
-                },
+                data:[10,5,2]
+            },
             ],
             };
         }
@@ -58,18 +58,30 @@ class IMUSensorWidget extends Component {
 
     fetchData= () =>{
         fetch('/events/latest?deviceId='+this.state.deviceID)
-            .then(response => response.json())
+            .then(response =>response.json())
             .then(data => {
 
-                this.setState({
+                    this.setState({
+                            series: [{
+                                data: [data.aX, data.aY, data.aZ]
+                            }, {
+                                data: [data.gX, data.gY, data.gZ]
+                            },
+                            ],
+                        }
+                    );
+
+            }).catch(()=>{
+                console.log("caught")
+            this.setState({
                     series: [{
-                        data: [data.aX,data.aY,data.aZ]
+                        data: [0,0,0]
                     }, {
-                        data: [data.gX,data.gY,data.gZ]
+                        data: [0,0,0]
                     },
                     ],
-                    }
-                );
+                }
+            );
             });
 
 

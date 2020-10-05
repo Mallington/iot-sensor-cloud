@@ -36,23 +36,39 @@ export default class ShowcaseLayout extends React.Component {
 
     }
 
-    componentDidMount() {
+    fetchData= () =>{
+        fetch('/devices?deviceType=SENSOR')
+            .then(response => response.json())
+            .then(devices => this.setState({sensors: devices}));
+    }
+
+    componentDidMount(){
+        this.fetchData();
+        this.timer = setInterval(this.fetchData, 5000);
         this.setState({ mounted: true });
     }
-
-    mapComponents(){
-        return '';
+    componentWillUnmount() {
+        clearInterval(this.timer)
     }
 
+
+
+
     generateDOM() {
-        const widgets = [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
+        /*const widgets = [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
                 <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />,
-            <DeviceOverview deviceID="8abb809774de86d40174de8e556e0002"></DeviceOverview>];
+            <DeviceOverview deviceID="8abb809774de86d40174de8e556e0002"/>]*/
+        const sensors = this.state.sensors.map((sensor)=>{
+            var comp = this.componentMap[sensor.outputDataType];
+            return (comp!=null )? comp(sensor.id) : <NotImplementedWidget deviceID={sensor.id}/>;
+        });
 
-        //widgets.append(this.state.sensors);
+       const widgets =  [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
+           <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />];
 
+        const all = widgets.concat(sensors);
 
-        return widgets.map(function(widget, key) {
+        return all.map(function(widget, key) {
             return (
                 <div key={key}>
                     {

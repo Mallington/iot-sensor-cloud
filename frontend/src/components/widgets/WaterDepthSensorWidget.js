@@ -135,7 +135,9 @@ class WaterDepthSensorWidget extends Component {
                     );
                     //console.log(this.state.series)
                 }
-            });
+            }).catch(()=>{
+           console.log("Catch")
+        });;
 
 
     }
