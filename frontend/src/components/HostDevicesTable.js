@@ -54,10 +54,13 @@ class HostDevicesTable  extends React.Component {
 
                     }}><Button onClick={runnable} style={{backgroundColor: 'transparent'}}variant="outline-light">{icon}</Button></div>);
                 };
+                this.upload = (deviceId)=>{
+                    window.open('/upload');
+                };
 
                 this.editDeviceFormat = (cell, row)=>(row.deviceType=="HOST")? this.constructButton(<VscSettingsGear size={iconSize}/>, ()=>this.deviceSettings(row.id)) : '';
                 this.outputDataFormat = (cell, row)=>(row.outputDataType==null)?("Not set") : row.outputDataType;
-                this.installFirmwareFormat = (cell, row)=>(row.deviceType=="HOST")?this.constructButton(<RiArrowRightLine size={iconSize}/>, ()=>{}) : '';
+                this.installFirmwareFormat = (cell, row)=>(row.deviceType=="HOST")?this.constructButton(<RiArrowRightLine size={iconSize}/>, ()=>this.upload(row.id)) : '';
                 this.deleteDeviceFormat = (cell, row)=>(this.constructButton(<VscTrash size={iconSize}/>, ()=>this.deleteDevice(row.id)));
                 this.downloadFirmwareFormat = (cell, row)=> (row.deviceType=="HOST")?(this.constructButton(<VscCloudDownload size={iconSize}/>, ()=>{})): '';
                 this.eventsLog = (cell, row)=>(this.constructButton(<VscListSelection size={iconSize}/>, ()=>{}));
