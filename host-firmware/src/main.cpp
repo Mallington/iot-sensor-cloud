@@ -29,8 +29,8 @@ void setup() {
     WiFiUtils.printWiFiStatus();
   }
     //Add sensor tasks
-    //scheduler.add(new WaterDepthSensor("8abb809773fedb7d0173fedb8ba60000"));
-    scheduler.add(new IMUSensor("8abb809774343cc001743447de0a0000"));
+    scheduler.add(new WaterDepthSensor("8abb809774f7e07c0174f8bcd0df0004"));
+    //scheduler.add(new IMUSensor("8abb809774343cc001743447de0a0000"));
     scheduler.setup();
     Serial.println("Setup");
 }
