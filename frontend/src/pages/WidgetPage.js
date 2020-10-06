@@ -63,10 +63,11 @@ export default class ShowcaseLayout extends React.Component {
             return (comp!=null )? comp(sensor.id) : <NotImplementedWidget deviceID={sensor.id}/>;
         });
 
-       const widgets =  [<GettingStartedWidget/>, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
-           <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />];
+       const widgets =  [<GettingStartedWidget/>];
+       /*, <IMUSensorWidget deviceID="8abb809774343cc001743447de0a0000"/>,
+           <WaterDepthSensorWidget deviceID="8abb809773fedb7d0173fedb8ba60000" />*/
 
-        const all = widgets.concat(sensors);
+        const all = sensors;
 
         return all.map(function(widget, key) {
             return (
