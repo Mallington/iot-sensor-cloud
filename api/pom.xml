@@ -74,6 +74,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<archive>
+						<manifest>
+							<packageName>Mallington.sensorapi</packageName>
+							<mainClass>Mallington.sensorapi.IoTSensorCloudAPI</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Created-By>mallington</Created-By>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
