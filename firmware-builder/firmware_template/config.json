@@ -1,5 +1,8 @@
 {
   "mainClass": "main.cpp",
+  "runParameterClass": "run_parameters.h",
+  "firmwareBaseLocation": "base/",
+  "dependantsBaseLocation": "dependants/",
   "dependencies": {
     "WaterDepthEvent": {
       "include": "sensors/WaterDepthSensor.h",
