@@ -1,0 +1,16 @@
+{
+  "mainClass": "main.cpp",
+  "dependencies": {
+    "WaterDepthEvent": {
+      "include": "sensors/WaterDepthSensor.h",
+      "files":["sensors/WaterDepthSensor.cpp", "sensors/WaterDepthSensor.h"],
+      "className": "WaterDepthSensor"
+    },
+    "IMUSensorEvent": {
+      "include": "sensors/IMUSensor.h",
+      "files":["sensors/IMUSensor.cpp", "sensors/IMUSensor.h"],
+      "className" : "IMUSensor"
+    }
+  }
+
+}
