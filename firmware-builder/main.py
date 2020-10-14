@@ -31,25 +31,38 @@ def build_main_class(template_file, destination_file, data_types, sensors):
         else:
             output_main.write(tempLine)
 
+
 def build_run_parameters(template_file, destination_file):
     print(template_file, destination_file)
     shutil.copy(template_file, destination_file)
-def copy_dependant_classes():
+
+
+def copy_dependant_classes(dependants_location, destination, data_types):
+    for data in data_types:
+        if data in config['dependencies']:
+            for file in config["dependencies"][data]["files"]:
+                print(os.path.join(dependants_location, file), os.path.join(destination, file))
+                shutil.copy(os.path.join(dependants_location, file), os.path.join(destination, file))
+
     print("TODO")
+
+
 def build_host(host):
     sensors = eval(api.get_sensors(host['id']))
-    outputDataClean = list(set([sensor['outputDataType'] for sensor in sensors]))
-    buildDirectory = os.path.join(hostFirmwareLocation, "build-{}/".format( host['id']))
-    print(outputDataClean)
+    output_data_clean = list(set([sensor['outputDataType'] for sensor in sensors]))
+    build_directory = os.path.join(hostFirmwareLocation, "build-{}/".format( host['id']))
+    print(output_data_clean)
 
-    shutil.copytree(os.path.join(hostFirmwareLocation, config["firmwareBaseLocation"]), buildDirectory)
+    shutil.copytree(os.path.join(hostFirmwareLocation, config["firmwareBaseLocation"]), build_directory)
 
-    build_main_class(os.path.join(hostFirmwareLocation, config["dependantsBaseLocation"], config["mainClass"]),
-                     os.path.join(buildDirectory, config["mainClass"]), outputDataClean, sensors)
+    dependants_base = os.path.join(hostFirmwareLocation, config["dependantsBaseLocation"])
+    build_main_class(os.path.join(dependants_base, config["mainClass"]),
+                     os.path.join(build_directory,"src/", config["mainClass"]), output_data_clean, sensors)
 
-    build_run_parameters(os.path.join(hostFirmwareLocation, config["dependantsBaseLocation"],config["runParameterClass"]),
-                         os.path.join(buildDirectory, config["runParameterClass"]))
-    copy_dependant_classes()
+    build_run_parameters(os.path.join(dependants_base,config["runParameterClass"]),
+                         os.path.join(build_directory,"src/", config["runParameterClass"]))
+
+    copy_dependant_classes(dependants_base, os.path.join(build_directory, "src/"), output_data_clean)
 
 def build():
     for host in eval(api.get_hosts()):
