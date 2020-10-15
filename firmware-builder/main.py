@@ -94,7 +94,7 @@ def build():
             print("Build failed on {}".format(host['id']))
 if __name__ == '__main__':
 
-    hostFirmwareLocation = os.path.abspath("firmware_template")
+    hostFirmwareLocation = os.path.abspath("../host-firmware")
     configLocation = os.path.join(hostFirmwareLocation, "config.json")
     config = json.load(open(configLocation))
     outputDirectory = os.path.abspath("output")
