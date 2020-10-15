@@ -5,9 +5,11 @@ import json
 import shutil
 import time
 import subprocess
+
+
 def build_main_class(template_file, destination_file, data_types, sensors):
     includes = ''
-    classInits = ''
+    class_inits = ''
 
     # Includes
     for data in data_types:
@@ -17,7 +19,7 @@ def build_main_class(template_file, destination_file, data_types, sensors):
     # Initialisations
     for sensor in sensors:
         if sensor['outputDataType'] in config['dependencies']:
-            classInits += "scheduler.add(new {}(\"{}\"));\n" \
+            class_inits += "scheduler.add(new {}(\"{}\"));\n" \
                 .format(config['dependencies'][sensor['outputDataType']]['className'], sensor['id'])
 
     template = open(template_file, 'r')
@@ -27,7 +29,7 @@ def build_main_class(template_file, destination_file, data_types, sensors):
         if tempLine.__contains__("{INCLUDES_MARKER}"):
             output_main.write(includes)
         elif tempLine.__contains__("{INIT_TASK_MARKER}"):
-            output_main.write(classInits)
+            output_main.write(class_inits)
         else:
             output_main.write(tempLine)
 
@@ -59,6 +61,7 @@ def execute_pio_build(project_dir, firmware_location_out, name):
 
     return final_bin, True
 
+
 def build_host(host):
     sensors = eval(api.get_sensors(host['id']))
     output_data_clean = list(set([sensor['outputDataType'] for sensor in sensors]))
@@ -82,6 +85,7 @@ def build_host(host):
 
     return out if successful else None
 
+
 def build():
     for host in eval(api.get_hosts()):
         print("Building {} (ID: {})".format(host['deviceName'], host['id']))
@@ -92,6 +96,8 @@ def build():
             print("DONE ({}s)".format(time.time() - start))
         else:
             print("Build failed on {}".format(host['id']))
+
+
 if __name__ == '__main__':
 
     hostFirmwareLocation = os.path.abspath("../host-firmware")
