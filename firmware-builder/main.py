@@ -7,7 +7,7 @@ import time
 
 
 def build():
-    builder = FirmwareBuilder(hostFirmwareLocation, outputDirectory, config, api)
+    builder = FirmwareBuilder(hostFirmwareLocation, outputDirectory, api)
 
     for host in eval(api.get_hosts()):
         print("Building {} (ID: {})".format(host['deviceName'], host['id']))
@@ -24,10 +24,8 @@ if __name__ == '__main__':
     apiIP = "10.59.0.23"
     apiPort = 8080
     hostFirmwareLocation = os.path.abspath("../host-firmware")
-    configLocation = os.path.join(hostFirmwareLocation, "config.json")
-    outputDirectory = os.path.abspath("output")
 
-    config = json.load(open(configLocation))
+    outputDirectory = os.path.abspath("output")
 
     api = APIHelper(apiIP, apiPort)
     if api.connect():

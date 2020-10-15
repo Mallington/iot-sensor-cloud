@@ -1,14 +1,15 @@
 import os
 import shutil
 import subprocess
-
+import json
 
 class FirmwareBuilder:
-    def __init__(self, template_firmware_location, output_directory, config, api):
+    def __init__(self, template_firmware_location, output_directory, api):
         self.hostFirmwareLocation = template_firmware_location
         self.outputDirectory = output_directory
-        self.config = config
         self.api = api
+
+        self.config = json.load(open(os.path.join(self.hostFirmwareLocation, "config.json")))
 
     def build_main_class(self, template_file, destination_file, data_types, sensors):
         includes = ''
