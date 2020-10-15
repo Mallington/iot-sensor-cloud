@@ -53,7 +53,6 @@ def execute_pio_build(project_dir, firmware_location_out, name):
         print(stderr)
         return None, False
 
-    os.makedirs(firmware_location_out, exist_ok=True)
     shutil.copy(os.path.join(project_dir, ".pio/build/nano_33_iot/firmware.bin"), firmware_location_out)
     final_bin = os.path.join(firmware_location_out, name)
     shutil.move(os.path.join(firmware_location_out, "firmware.bin"), final_bin)
@@ -63,7 +62,9 @@ def execute_pio_build(project_dir, firmware_location_out, name):
 def build_host(host):
     sensors = eval(api.get_sensors(host['id']))
     output_data_clean = list(set([sensor['outputDataType'] for sensor in sensors]))
-    build_directory = os.path.join(hostFirmwareLocation, "build-{}/".format( host['id']))
+
+    os.makedirs(outputDirectory, exist_ok=True)
+    build_directory = os.path.join(outputDirectory, "build-{}/".format( host['id']))
 
     shutil.copytree(os.path.join(hostFirmwareLocation, config["firmwareBaseLocation"]), build_directory)
 
