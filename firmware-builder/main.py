@@ -3,12 +3,12 @@ import os
 from APIHelper import APIHelper
 import json
 import shutil
-
-
+import time
+import subprocess
 def build_main_class(template_file, destination_file, data_types, sensors):
     includes = ''
     classInits = ''
-    print(template_file, destination_file)
+
     # Includes
     for data in data_types:
         if data in config['dependencies']:
@@ -33,7 +33,6 @@ def build_main_class(template_file, destination_file, data_types, sensors):
 
 
 def build_run_parameters(template_file, destination_file):
-    print(template_file, destination_file)
     shutil.copy(template_file, destination_file)
 
 
@@ -41,17 +40,30 @@ def copy_dependant_classes(dependants_location, destination, data_types):
     for data in data_types:
         if data in config['dependencies']:
             for file in config["dependencies"][data]["files"]:
-                print(os.path.join(dependants_location, file), os.path.join(destination, file))
                 shutil.copy(os.path.join(dependants_location, file), os.path.join(destination, file))
 
-    print("TODO")
 
+def execute_pio_build(project_dir, firmware_location_out, name):
+    pio_build_out = subprocess.Popen(["/usr/local/bin/platformio", "run", "-d", project_dir],
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.STDOUT)
+    _, stderr = pio_build_out.communicate()
+
+    if stderr is not None:
+        print(stderr)
+        return None, False
+
+    os.makedirs(firmware_location_out, exist_ok=True)
+    shutil.copy(os.path.join(project_dir, ".pio/build/nano_33_iot/firmware.bin"), firmware_location_out)
+    final_bin = os.path.join(firmware_location_out, name)
+    shutil.move(os.path.join(firmware_location_out, "firmware.bin"), final_bin)
+
+    return final_bin, True
 
 def build_host(host):
     sensors = eval(api.get_sensors(host['id']))
     output_data_clean = list(set([sensor['outputDataType'] for sensor in sensors]))
     build_directory = os.path.join(hostFirmwareLocation, "build-{}/".format( host['id']))
-    print(output_data_clean)
 
     shutil.copytree(os.path.join(hostFirmwareLocation, config["firmwareBaseLocation"]), build_directory)
 
@@ -64,22 +76,33 @@ def build_host(host):
 
     copy_dependant_classes(dependants_base, os.path.join(build_directory, "src/"), output_data_clean)
 
+    binary_file = outputDirectory
+    out, successful = execute_pio_build(build_directory, binary_file, "firmware-{}.bin".format(host["id"]))
+
+    return out if successful else None
+
 def build():
     for host in eval(api.get_hosts()):
         print("Building {} (ID: {})".format(host['deviceName'], host['id']))
-        build_host(host)
-
+        start = time.time()
+        out = build_host(host)
+        if out is not None:
+            print(out)
+            print("DONE ({}s)".format(time.time() - start))
+        else:
+            print("Build failed on {}".format(host['id']))
 if __name__ == '__main__':
 
     hostFirmwareLocation = os.path.abspath("firmware_template")
     configLocation = os.path.join(hostFirmwareLocation, "config.json")
     config = json.load(open(configLocation))
-    print(config)
+    outputDirectory = os.path.abspath("output")
 
     api = APIHelper("10.59.0.23", 8080)
-    print(api.connect())
-
-    print("Running firmware builder")
-    build()
+    if(api.connect()):
+        print("Building...")
+        build()
+    else:
+        print("ERROR: Could not connect to API")
 
 
