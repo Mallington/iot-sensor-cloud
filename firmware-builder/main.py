@@ -2,7 +2,6 @@ import os
 
 from APIHelper import APIHelper
 from FirmwareBuilder import FirmwareBuilder
-import json
 import time
 
 

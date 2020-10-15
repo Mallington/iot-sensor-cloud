@@ -2,3 +2,4 @@
 .DS_Store
 host-firmware/src/run_parameters.h
 chart/.idea/workspace.xml
+host-firmware/dependants/run_parameters.h
