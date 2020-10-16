@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import json
-
+from FileUtils import replace_markers_lines
 class FirmwareBuilder:
     def __init__(self, template_firmware_location, output_directory, api):
         self.hostFirmwareLocation = template_firmware_location
@@ -26,16 +26,8 @@ class FirmwareBuilder:
                 class_inits += "scheduler.add(new {}(\"{}\"));\n" \
                     .format(self.config['dependencies'][sensor['outputDataType']]['className'], sensor['id'])
 
-        template = open(template_file, 'r')
-        output_main = open(destination_file, 'w')
-
-        for tempLine in template.readlines():
-            if tempLine.__contains__("{INCLUDES_MARKER}"):
-                output_main.write(includes)
-            elif tempLine.__contains__("{INIT_TASK_MARKER}"):
-                output_main.write(class_inits)
-            else:
-                output_main.write(tempLine)
+        replace_markers_lines(template_file, destination_file,
+                              [["{INCLUDES_MARKER}", includes], ["{INIT_TASK_MARKER}", class_inits]])
 
     def build_run_parameters(self, template_file, destination_file):
         shutil.copy(template_file, destination_file)
