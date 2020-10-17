@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import json
-from FileUtils import replace_markers_lines
+from FileUtils import replace_markers_lines, replace_markers
 class FirmwareBuilder:
     def __init__(self, template_firmware_location, output_directory, api):
         self.hostFirmwareLocation = template_firmware_location
@@ -29,8 +29,16 @@ class FirmwareBuilder:
         replace_markers_lines(template_file, destination_file,
                               [["{INCLUDES_MARKER}", includes], ["{INIT_TASK_MARKER}", class_inits]])
 
-    def build_run_parameters(self, template_file, destination_file):
-        shutil.copy(template_file, destination_file)
+    def build_run_parameters(self, template_file, destination_file, host):
+        device_params = json.loads(self.api.get_device_configuration(host['id']))
+        print(device_params)
+        replace_markers(template_file, destination_file,
+                              [["$SSID_LOCATION", device_params['ssid']],
+                               ["$WIFI_PASSWORD", device_params['wifiPassword']],
+                               ["$API_ADDRESS", device_params["apiEndpoint"]],
+                               ["$API_PORT", device_params["port"]],
+                               ["$DEVICE_ID", host['id']]
+                               ])
 
     def copy_dependant_classes(self, dependants_location, destination, data_types):
         for data in data_types:
@@ -68,7 +76,7 @@ class FirmwareBuilder:
                          os.path.join(build_directory, "src/", self.config["mainClass"]), output_data_clean, sensors)
 
         self.build_run_parameters(os.path.join(dependants_base, self.config["runParameterClass"]),
-                             os.path.join(build_directory, "src/", self.config["runParameterClass"]))
+                             os.path.join(build_directory, "src/", self.config["runParameterClass"]), host)
 
         self.copy_dependant_classes(dependants_base, os.path.join(build_directory, "src/"), output_data_clean)
 

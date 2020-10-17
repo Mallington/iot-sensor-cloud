@@ -26,3 +26,7 @@ class APIHelper:
     def get_sensors(self, parent_id):
         return requests.get(self.build_url("/devices?parentId={}".format(parent_id))).content
 
+    def get_device_configuration(self, device_id):
+        #        return requests.get(self.build_url("/device/id/configuration".format(device_id))).content
+        # Temporary
+        return requests.get(self.build_url("/device-configurations/8abb809774de86d40174de8700640000")).content
