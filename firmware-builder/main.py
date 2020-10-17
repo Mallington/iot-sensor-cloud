@@ -12,8 +12,9 @@ def build():
     for host in eval(api.get_hosts()):
         print("Building {} (ID: {})".format(host['deviceName'], host['id']))
         start = time.time()
-        out = builder.build_host(host)
-        if out is not None:
+        out, successful = builder.build_host(host)
+        print(out, successful)
+        if successful:
             print(out)
             print("DONE ({}s)".format(time.time() - start))
         else:

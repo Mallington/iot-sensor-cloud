@@ -46,30 +46,9 @@ class FirmwareBuilder:
                 for file in self.config["dependencies"][data]["files"]:
                     shutil.copy(os.path.join(dependants_location, file), os.path.join(destination, file))
 
-    def execute_pio_build(self, project_dir, firmware_location_out, name):
-        pio_build_out = subprocess.Popen(["/usr/local/bin/platformio", "run", "-d", project_dir],
-                                         stdout=subprocess.PIPE,
-                                         stderr=subprocess.STDOUT)
-        _, stderr = pio_build_out.communicate()
-
-        if stderr is not None:
-            print(stderr)
-            return None, False
-
-        shutil.copy(os.path.join(project_dir, ".pio/build/nano_33_iot/firmware.bin"), firmware_location_out)
-        final_bin = os.path.join(firmware_location_out, name)
-        shutil.move(os.path.join(firmware_location_out, "firmware.bin"), final_bin)
-
-        return final_bin, True
-
-    def build_host(self, host):
+    def generate_templates(self, host, build_directory):
         sensors = eval(self.api.get_sensors(host['id']))
         output_data_clean = list(set([sensor['outputDataType'] for sensor in sensors]))
-
-        os.makedirs(self.outputDirectory, exist_ok=True)
-        build_directory = os.path.join(self.outputDirectory, "build-{}/".format(host['id']))
-
-        shutil.copytree(os.path.join(self.hostFirmwareLocation, self.config["firmwareBaseLocation"]), build_directory)
 
         dependants_base = os.path.join(self.hostFirmwareLocation, self.config["dependantsBaseLocation"])
         self.build_main_class(os.path.join(dependants_base, self.config["mainClass"]),
@@ -80,7 +59,32 @@ class FirmwareBuilder:
 
         self.copy_dependant_classes(dependants_base, os.path.join(build_directory, "src/"), output_data_clean)
 
-        binary_file = self.outputDirectory
-        out, successful = self.execute_pio_build(build_directory, binary_file, "firmware-{}.bin".format(host["id"]))
+    def execute_pio_build(self, project_dir, firmware_location_out, name):
+        pio_build_out = subprocess.Popen(["/usr/local/bin/platformio", "run", "-d", project_dir],
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT)
+        _, stderr = pio_build_out.communicate()
 
-        return out if successful else None
+        if stderr is not None:
+            print(stderr)
+            return None, False
+
+        firmware_location = os.path.join(project_dir, ".pio/build/nano_33_iot/firmware.bin")
+        print("CHECK")
+        if not os.path.exists(firmware_location_out):
+            return None, False
+
+        shutil.copy(firmware_location, firmware_location_out)
+        final_bin = os.path.join(firmware_location_out, name)
+        shutil.move(os.path.join(firmware_location_out, "firmware.bin"), final_bin)
+
+        return final_bin, True
+
+    def build_host(self, host):
+        os.makedirs(self.outputDirectory, exist_ok=True)
+        build_directory = os.path.join(self.outputDirectory, "build-{}/".format(host['id']))
+        shutil.copytree(os.path.join(self.hostFirmwareLocation, self.config["firmwareBaseLocation"]), build_directory)
+
+        self.generate_templates(host, build_directory)
+
+        return self.execute_pio_build(build_directory, self.outputDirectory, "firmware-{}.bin".format(host["id"]))
